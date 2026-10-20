@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "express": "^4.19.2",
-    "@vercel/kv": "^2.0.0",
     "nanoid": "^3.3.7"
   }
 }
