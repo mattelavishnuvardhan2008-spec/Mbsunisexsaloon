@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BARBERX Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0f1016;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #11131a;
+      padding: 24px;
+      border-bottom: 1px solid rgba(255,107,53,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 4px;
+      color: #ff6b35;
+    }
+    .admin-key-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .admin-key-row input {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,107,53,0.2);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      width: 320px;
+    }
+    .admin-key-row button {
+      padding: 12px 18px;
+      border: none;
+      background: #ff6b35;
+      color: #11131a;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    main {
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .appointments-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+    }
+    .appointments-table th,
+    .appointments-table td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align: left;
+      font-size: 14px;
+    }
+    .appointments-table th {
+      color: rgba(255,255,255,0.75);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .alert {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255,107,53,0.08);
+      border: 1px solid rgba(255,107,53,0.2);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BARBERX Admin</h1>
+    <div class="admin-key-row">
+      <input id="adminKey" type="password" placeholder="Enter owner admin key" />
+      <button onclick="loadAppointments()">Load Appointments</button>
+    </div>
+  </header>
+  <main>
+    <div class="alert" id="adminAlert">Use the owner key to load appointment details.</div>
+    <table class="appointments-table" id="appointmentsTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Service</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script>
+    async function loadAppointments() {
+      const key = document.getElementById('adminKey').value.trim();
+      const alertBox = document.getElementById('adminAlert');
+      const tbody = document.querySelector('#appointmentsTable tbody');
+      tbody.innerHTML = '';
+
+      if (!key) {
+        alertBox.textContent = 'Owner key is required to view appointments.';
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/admin/appointments', {
+          headers: { authorization: `Bearer ${key}` }
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || 'Unable to load appointments');
+        }
+
+        if (!data.appointments.length) {
+          alertBox.textContent = 'No appointments found yet.';
+          return;
+        }
+
+        alertBox.textContent = `Loaded ${data.appointments.length} appointment(s).`;
+        data.appointments.forEach((appointment) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${appointment.name}</td>
+            <td>${appointment.phone}</td>
+            <td>${appointment.service}</td>
+            <td>${appointment.date}</td>
+            <td>${appointment.time}</td>
+            <td>${appointment.notes || '—'}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        alertBox.textContent = `Error: ${error.message}`;
+      }
+    }
+  </script>
+</body>
+</html>
