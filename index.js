@@ -10,7 +10,7 @@ const APPOINTMENTS_KEY = 'appointments';
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Serve static files from the project root (index.html, css, js, etc.)
+// Serve static files from the project root
 app.use(express.static(__dirname));
 
 app.post('/api/appointments', async (req, res) => {
@@ -30,7 +30,7 @@ app.post('/api/appointments', async (req, res) => {
     createdAt: new Date().toISOString()
   };
 
-  // Push appointment onto a KV list — persists across requests/instances
+  // Push appointment onto a KV list
   await kv.rpush(APPOINTMENTS_KEY, JSON.stringify(appointment));
 
   res.json({ success: true, appointment });
@@ -53,6 +53,19 @@ app.get('/api/admin/appointments', async (req, res) => {
   );
 
   res.json({ appointments });
+});
+
+// NEW: Delete all appointments route
+app.delete('/api/admin/appointments', async (req, res) => {
+  const auth = req.headers.authorization;
+  const ownerKey = process.env.ADMIN_KEY;
+
+  if (!ownerKey || !auth || auth !== `Bearer ${ownerKey}`) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+
+  await kv.del(APPOINTMENTS_KEY);
+  res.json({ success: true, message: 'All appointments cleared.' });
 });
 
 app.get('/', (req, res) => {
