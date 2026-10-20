@@ -1,18 +1,46 @@
 const express = require('express');
 const path = require('path');
 const { nanoid } = require('nanoid');
-const { kv } = require('@vercel/kv');
 
 const app = express();
-
-const APPOINTMENTS_KEY = 'appointments';
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// Serve static files from the project root
 app.use(express.static(__dirname));
 
+// Helper function to make requests to the Cloudflare D1 Worker
+const callD1Worker = async (method, body = null) => {
+  const workerUrl = process.env.WORKER_URL;
+  const proxySecret = process.env.PROXY_SECRET;
+  
+  if (!workerUrl || !proxySecret) {
+    throw new Error('Server missing WORKER_URL or PROXY_SECRET environment variables');
+  }
+
+  const options = {
+    method,
+    headers: {
+      'Authorization': `Bearer ${proxySecret}`,
+      'Content-Type': 'application/json'
+    }
+  };
+  
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
+  
+  const response = await fetch(workerUrl, options);
+  const text = await response.text(); // Get text first to prevent JSON parsing crashes
+  
+  try {
+    const data = JSON.parse(text);
+    if (!response.ok) throw new Error(data.error || 'Worker request failed');
+    return data;
+  } catch (err) {
+    throw new Error(`Worker Error (${response.status}): ${text.substring(0, 50)}...`);
+  }
+};
+
+// POST: Book an appointment
 app.post('/api/appointments', async (req, res) => {
   const { name, phone, service, date, time, notes } = req.body;
   if (!name || !phone || !service || !date || !time) {
@@ -30,42 +58,52 @@ app.post('/api/appointments', async (req, res) => {
     createdAt: new Date().toISOString()
   };
 
-  // Push appointment onto a KV list
-  await kv.rpush(APPOINTMENTS_KEY, JSON.stringify(appointment));
-
-  res.json({ success: true, appointment });
+  try {
+    await callD1Worker('POST', appointment);
+    res.json({ success: true, appointment });
+  } catch (error) {
+    console.error('Booking error:', error.message);
+    res.status(500).json({ error: error.message });
+  }
 });
 
+// GET: Admin - load appointments
 app.get('/api/admin/appointments', async (req, res) => {
   const auth = req.headers.authorization;
   const ownerKey = process.env.ADMIN_KEY;
 
   if (!ownerKey) {
-    return res.status(500).json({ error: 'ADMIN_KEY not configured' });
+    return res.status(500).json({ error: 'ADMIN_KEY not configured on server' });
   }
   if (!auth || auth !== `Bearer ${ownerKey}`) {
-    return res.status(403).json({ error: 'Forbidden' });
+    return res.status(403).json({ error: 'Forbidden: Invalid Admin Key' });
   }
 
-  const raw = await kv.lrange(APPOINTMENTS_KEY, 0, -1);
-  const appointments = raw.map((item) =>
-    typeof item === 'string' ? JSON.parse(item) : item
-  );
-
-  res.json({ appointments });
+  try {
+    const data = await callD1Worker('GET');
+    res.json({ appointments: data.appointments || [] });
+  } catch (error) {
+    console.error('Admin load error:', error.message);
+    res.status(500).json({ error: error.message });
+  }
 });
 
-// NEW: Delete all appointments route
+// DELETE: Admin - delete all appointments
 app.delete('/api/admin/appointments', async (req, res) => {
   const auth = req.headers.authorization;
   const ownerKey = process.env.ADMIN_KEY;
 
   if (!ownerKey || !auth || auth !== `Bearer ${ownerKey}`) {
-    return res.status(403).json({ error: 'Forbidden' });
+    return res.status(403).json({ error: 'Forbidden: Invalid Admin Key' });
   }
 
-  await kv.del(APPOINTMENTS_KEY);
-  res.json({ success: true, message: 'All appointments cleared.' });
+  try {
+    await callD1Worker('DELETE');
+    res.json({ success: true, message: 'All appointments cleared.' });
+  } catch (error) {
+    console.error('Delete error:', error.message);
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.get('/', (req, res) => {
