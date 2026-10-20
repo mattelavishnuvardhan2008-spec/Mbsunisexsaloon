@@ -29,7 +29,7 @@ const callD1Worker = async (method, body = null) => {
   }
   
   const response = await fetch(workerUrl, options);
-  const text = await response.text(); // Get text first to prevent JSON parsing crashes
+  const text = await response.text(); 
   
   try {
     const data = JSON.parse(text);
@@ -43,8 +43,21 @@ const callD1Worker = async (method, body = null) => {
 // POST: Book an appointment
 app.post('/api/appointments', async (req, res) => {
   const { name, phone, service, date, time, notes } = req.body;
+  
+  // 1. Check required fields
   if (!name || !phone || !service || !date || !time) {
     return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  // 2. Enforce length limits on the backend
+  if (name.length > 50) {
+    return res.status(400).json({ error: 'Name cannot exceed 50 characters' });
+  }
+  if (phone.length > 10) {
+    return res.status(400).json({ error: 'Phone number cannot exceed 10 characters' });
+  }
+  if (notes && notes.length > 100) {
+    return res.status(400).json({ error: 'Notes cannot exceed 100 characters' });
   }
 
   const appointment = {
