@@ -18,10 +18,16 @@
       padding: 24px;
       border-bottom: 1px solid rgba(255,107,53,0.2);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 16px;
+      align-items: flex-start;
+    }
+    @media (min-width: 768px) {
+      header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
     header h1 {
       font-family: 'Bebas Neue', sans-serif;
@@ -35,6 +41,10 @@
       gap: 12px;
       flex-wrap: wrap;
       align-items: center;
+      width: 100%;
+    }
+    @media (min-width: 768px) {
+      .admin-key-row { width: auto; }
     }
     .admin-key-row input {
       padding: 12px 14px;
@@ -42,9 +52,10 @@
       border: 1px solid rgba(255,107,53,0.2);
       background: rgba(255,255,255,0.05);
       color: white;
-      width: 280px;
+      flex: 1;
+      min-width: 200px;
     }
-    .admin-key-row button, .action-btn {
+    .admin-key-row button {
       padding: 12px 18px;
       border: none;
       background: #ff6b35;
@@ -52,10 +63,7 @@
       font-weight: 700;
       border-radius: 10px;
       cursor: pointer;
-      transition: opacity 0.2s;
     }
-    .admin-key-row button:hover, .action-btn:hover { opacity: 0.8; }
-    
     main {
       padding: 30px;
       max-width: 1200px;
@@ -66,14 +74,24 @@
       display: flex;
       gap: 12px;
       margin-bottom: 24px;
+      flex-wrap: wrap;
     }
-    .btn-download { background: #4CAF50; color: white; }
-    .btn-delete { background: #dc3545; color: white; }
-
+    .action-btn {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      color: white;
+    }
+    .btn-download { background: #4CAF50; }
+    .btn-delete { background: #dc3545; }
     .appointments-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 24px;
+      overflow-x: auto;
+      display: block;
     }
     .appointments-table th,
     .appointments-table td {
@@ -81,6 +99,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.08);
       text-align: left;
       font-size: 14px;
+      white-space: nowrap;
     }
     .appointments-table th {
       color: rgba(255,255,255,0.75);
@@ -101,7 +120,7 @@
     <h1>BARBERX Admin</h1>
     <div class="admin-key-row">
       <input id="adminKey" type="password" placeholder="Enter owner admin key" />
-      <button onclick="loadAppointments()">Load Appointments</button>
+      <button onclick="loadAppointments()">Load</button>
     </div>
   </header>
   <main>
@@ -128,7 +147,7 @@
   </main>
 
   <script>
-    let currentAppointments = []; // Store for CSV export
+    let currentAppointments = [];
 
     async function loadAppointments() {
       const key = document.getElementById('adminKey').value.trim();
@@ -141,6 +160,8 @@
         alertBox.textContent = 'Owner key is required.';
         return;
       }
+
+      alertBox.textContent = 'Loading...';
 
       try {
         const response = await fetch('/api/admin/appointments', {
@@ -180,7 +201,6 @@
             return alert("No appointments to download. Load them first.");
         }
 
-        // Build CSV Content (Excel opens CSV files perfectly)
         const headers = ['Name', 'Phone', 'Service', 'Date', 'Time', 'Notes'];
         const rows = currentAppointments.map(app => [
             app.name, app.phone, app.service, app.date, app.time, app.notes || ''
@@ -188,7 +208,6 @@
         
         const csvContent = headers.join(',') + '\n' + rows.join('\n');
         
-        // Create Download Link
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
