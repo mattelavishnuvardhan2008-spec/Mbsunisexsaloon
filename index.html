@@ -362,7 +362,6 @@
             border-color: rgba(184, 151, 84, 0.45);
         }
 
-        /* --- POPUP MODAL CSS --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -449,7 +448,6 @@
 
     <main>
         <div class="services-grid">
-            <!-- UPDATED IMAGES -->
             <article class="service-card">
                 <img class="service-image" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=80" alt="Barber haircut">
                 <div class="service-icon">💈</div>
@@ -491,11 +489,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="customerName">Name</label>
-                        <input type="text" id="customerName" placeholder="John Doe">
+                        <!-- Added maxlength="50" -->
+                        <input type="text" id="customerName" placeholder="John Doe" maxlength="50">
                     </div>
                     <div class="form-group">
                         <label for="customerPhone">Phone</label>
-                        <input type="tel" id="customerPhone" placeholder="+91 98765 43210">
+                        <!-- Added maxlength="10" -->
+                        <input type="tel" id="customerPhone" placeholder="9876543210" maxlength="10">
                     </div>
                 </div>
 
@@ -535,7 +535,8 @@
                     </div>
                     <div class="form-group">
                         <label for="notes">Additional Notes</label>
-                        <textarea id="notes" rows="3" placeholder="Preferred style, allergies, or special requests"></textarea>
+                        <!-- Added maxlength="100" -->
+                        <textarea id="notes" rows="3" placeholder="Preferred style, allergies, or special requests" maxlength="100"></textarea>
                     </div>
                 </div>
 
@@ -544,7 +545,6 @@
         </section>
     </main>
 
-    <!-- POPUP MODAL HTML -->
     <div class="modal-overlay" id="bookingModal">
         <div class="modal-content">
             <h3>Booking Confirmed!</h3>
@@ -599,7 +599,6 @@
 
                 const appointment = data.appointment;
 
-                // Show Modal Popup
                 document.getElementById('modalMessage').innerHTML = `
                     <strong>${appointment.name}</strong>, your ${appointment.service} booking is confirmed for <strong>${appointment.date}</strong> at <strong>${appointment.time}</strong>.<br><br>
                     Total due at arrival: <strong>₹${fee}</strong>
@@ -607,7 +606,6 @@
                 `;
                 document.getElementById('bookingModal').classList.add('active');
                 
-                // Clear Form
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('appointmentDate').value = '';
