@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BARBERX - Premium Grooming</title>
-    <!-- This sets the logo as the browser tab icon -->
-    <link rel="icon" type="image/png" href="logo.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -44,11 +41,12 @@
             box-shadow: 0 10px 40px rgba(63, 52, 35, 0.08);
         }
 
-        /* CSS for the new logo image */
-        .site-logo {
-            height: 45px; 
-            width: auto;
-            object-fit: contain;
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 30px;
+            color: var(--accent);
+            letter-spacing: 6px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.12);
         }
 
         .hero {
@@ -433,9 +431,7 @@
 </head>
 <body>
     <nav>
-        <!-- Replaced text "BARBERX" with Image -->
-        <img src="logo.png" alt="MBS Creative" class="site-logo">
-        
+        <div class="logo">BARBERX</div>
         <div class="nav-links">
             <a href="admin.html">Owner Admin</a>
         </div>
@@ -493,10 +489,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="customerName">Name</label>
+                        <!-- Added maxlength="50" -->
                         <input type="text" id="customerName" placeholder="John Doe" maxlength="50">
                     </div>
                     <div class="form-group">
                         <label for="customerPhone">Phone</label>
+                        <!-- Added maxlength="10" -->
                         <input type="tel" id="customerPhone" placeholder="9876543210" maxlength="10">
                     </div>
                 </div>
@@ -537,6 +535,7 @@
                     </div>
                     <div class="form-group">
                         <label for="notes">Additional Notes</label>
+                        <!-- Added maxlength="100" -->
                         <textarea id="notes" rows="3" placeholder="Preferred style, allergies, or special requests" maxlength="100"></textarea>
                     </div>
                 </div>
