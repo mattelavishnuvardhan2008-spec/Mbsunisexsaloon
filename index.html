@@ -8,12 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #E2D3B3; /* Beige */
-            --surface: #FDF7E7; /* Cream/White */
-            --surface-strong: #D3BE90;
-            --text: #3F3423; /* Dark Brown */
+            --bg: #E2D3B3;
+            --surface: #FDF7E7;
+            --text: #3F3423;
             --muted: #7E6A52;
-            --accent: #CDAA4F; /* Gold */
+            --accent: #CDAA4F;
             --accent-dark: #A2843D;
             --border: rgba(184, 151, 84, 0.3);
         }
@@ -29,24 +28,26 @@
             min-height: 100vh;
         }
 
-        /* NAVIGATION */
+        /* TOP BAR (Same style as admin) */
         nav {
-            position: absolute;
+            position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 32px;
+            padding: 16px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: var(--surface);
+            border-bottom: 2px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             z-index: 1000;
         }
 
         .logo {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 36px;
-            color: var(--accent);
+            font-size: 32px;
+            color: var(--accent-dark);
             letter-spacing: 4px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .nav-links a {
@@ -54,17 +55,15 @@
             text-decoration: none;
             font-weight: 700;
             border: 1px solid var(--accent);
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
             font-size: 14px;
-            background: rgba(253, 247, 231, 0.8);
-            backdrop-filter: blur(4px);
             transition: 0.3s;
         }
 
         .nav-links a:hover { background: var(--accent); color: white; }
 
-        /* HERO SECTION (100vh) */
+        /* HERO SECTION */
         .hero {
             width: 100%;
             min-height: 100vh;
@@ -74,14 +73,14 @@
             align-items: center;
             text-align: center;
             background: radial-gradient(circle at top center, #FEF6E4 0%, #E9D5A2 40%, #D3BE90 100%);
-            padding: 20px;
+            padding: 100px 20px 20px;
         }
 
         .hero h1 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: clamp(80px, 15vw, 140px);
             line-height: 0.9;
-            color: var(--accent);
+            color: var(--accent-dark);
             letter-spacing: 8px;
             margin-bottom: 10px;
             text-shadow: 0 4px 20px rgba(184, 151, 84, 0.2);
@@ -112,7 +111,7 @@
 
         .hero-cta:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-        /* SERVICES */
+        /* SERVICES (1 per row) */
         .services-section {
             padding: 60px 20px;
             background: var(--bg);
@@ -120,14 +119,10 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: 1fr; /* Mobile: 1 per screen */
-            gap: 24px;
-            max-width: 1000px;
+            grid-template-columns: 1fr; /* 1 Column on ALL screens */
+            gap: 30px;
+            max-width: 600px; /* Keeps it neat on laptops */
             margin: 0 auto;
-        }
-
-        @media (min-width: 768px) {
-            .services-grid { grid-template-columns: repeat(2, 1fr); } /* Desktop: 2 per row */
         }
 
         .service-card {
@@ -144,13 +139,20 @@
         }
 
         .service-card:hover { transform: translateY(-5px); }
-        .service-image { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; }
+        .service-image { width: 100%; height: 300px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; }
 
         .service-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 28px;
+            font-size: 32px;
             color: var(--text);
             letter-spacing: 2px;
+        }
+
+        .service-desc {
+            font-size: 15px;
+            color: var(--muted);
+            margin-top: 8px;
+            line-height: 1.5;
         }
 
         /* BOOKING FORM */
@@ -191,6 +193,8 @@
         .form-group input, .form-group textarea, .form-group select {
             width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 15px; background: #fff; color: var(--text);
         }
+        
+        .form-group textarea { resize: none; } /* Fixes movable textarea */
 
         .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 10px rgba(205, 170, 79, 0.2); }
 
@@ -222,7 +226,7 @@
         /* FOOTER */
         footer {
             background: var(--bg);
-            color: rgba(63, 52, 35, 0.4); /* Blends into background */
+            color: rgba(63, 52, 35, 0.4);
             text-align: center; padding: 30px; font-size: 13px; font-weight: 600; letter-spacing: 1px;
             margin-top: auto; border-top: 1px solid rgba(184, 151, 84, 0.1);
         }
@@ -259,18 +263,22 @@
             <article class="service-card">
                 <img class="service-image" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80" alt="Haircut">
                 <h3 class="service-title">Haircut</h3>
+                <p class="service-desc">Precision styling and expert fades to keep your look sharp and groomed.</p>
             </article>
             <article class="service-card">
                 <img class="service-image" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80" alt="Beard Trimming">
                 <h3 class="service-title">Beard Trimming</h3>
+                <p class="service-desc">Clean shaping, edging, and conditioning for a polished beard finish.</p>
             </article>
             <article class="service-card">
                 <img class="service-image" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80" alt="Massage">
                 <h3 class="service-title">Massage</h3>
+                <p class="service-desc">Relax the neck, shoulders and scalp with a restorative massage built for grooming recovery.</p>
             </article>
             <article class="service-card">
                 <img class="service-image" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=600&q=80" alt="Spa Treatment">
                 <h3 class="service-title">Spa Treatment</h3>
+                <p class="service-desc">Hot towel ritual, facial care, and premium spa touches for a luxury grooming reset.</p>
             </article>
         </div>
     </section>
@@ -363,6 +371,10 @@
             if (ampm === 'PM' && hours < 12) hours += 12;
             if (ampm === 'AM' && hours === 12) hours = 0;
             const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes}`;
+
+            if (formattedTime < '09:00' || formattedTime > '22:00') {
+                return alert('We are open from 9:00 AM to 10:00 PM. Please select a valid time.');
+            }
 
             try {
                 const response = await fetch('/api/appointments', {
