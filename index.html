@@ -8,12 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #F9F6F0; /* Cream */
-            --text: #111111; /* Black */
-            --accent: #C6A664; /* Gold */
-            --secondary: #D97A42; /* Orange */
-            --surface: #FFFFFF;
-            --border: rgba(198, 166, 100, 0.3);
+            --bg: #E2D3B3; /* Beige */
+            --surface: #FDF7E7; /* Cream/White */
+            --surface-strong: #D3BE90;
+            --text: #3F3423; /* Dark Brown */
+            --muted: #7E6A52;
+            --accent: #CDAA4F; /* Gold */
+            --accent-dark: #A2843D;
+            --border: rgba(184, 151, 84, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,198 +24,220 @@
             font-family: 'DM Sans', sans-serif;
             background: var(--bg);
             color: var(--text);
-            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
+        /* NAVIGATION */
         nav {
-            background: #111111;
-            padding: 16px 32px;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 20px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--accent);
+            z-index: 1000;
         }
 
         .logo {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 32px;
+            font-size: 36px;
             color: var(--accent);
             letter-spacing: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .nav-links a {
-            color: var(--bg);
+            color: var(--text);
             text-decoration: none;
             font-weight: 700;
             border: 1px solid var(--accent);
-            padding: 8px 16px;
-            border-radius: 4px;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-size: 14px;
-            transition: 0.2s;
+            background: rgba(253, 247, 231, 0.8);
+            backdrop-filter: blur(4px);
+            transition: 0.3s;
         }
 
-        .nav-links a:hover { background: var(--accent); color: #111; }
+        .nav-links a:hover { background: var(--accent); color: white; }
 
+        /* HERO SECTION (100vh) */
         .hero {
             width: 100%;
-            padding: 80px 20px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(180deg, #111111 0%, #222222 100%);
-            color: var(--bg);
+            background: radial-gradient(circle at top center, #FEF6E4 0%, #E9D5A2 40%, #D3BE90 100%);
+            padding: 20px;
         }
 
         .hero h1 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 80px;
-            line-height: 1;
+            font-size: clamp(80px, 15vw, 140px);
+            line-height: 0.9;
             color: var(--accent);
-            letter-spacing: 4px;
+            letter-spacing: 8px;
             margin-bottom: 10px;
+            text-shadow: 0 4px 20px rgba(184, 151, 84, 0.2);
         }
 
         .hero .tagline {
-            font-size: 18px;
-            letter-spacing: 6px;
+            font-size: clamp(16px, 3vw, 24px);
+            letter-spacing: 8px;
             text-transform: uppercase;
-            color: var(--secondary);
-            margin-bottom: 30px;
+            color: var(--text);
+            margin-bottom: 40px;
             font-weight: 300;
         }
 
         .hero-cta {
-            padding: 14px 32px;
-            background: var(--accent);
-            color: #111;
+            padding: 16px 40px;
+            background: var(--accent-dark);
+            color: white;
             font-weight: bold;
             border: none;
-            border-radius: 4px;
+            border-radius: 999px;
             cursor: pointer;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-size: 14px;
+            box-shadow: 0 10px 30px rgba(92, 67, 34, 0.2);
+            transition: 0.2s;
+        }
+
+        .hero-cta:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* SERVICES */
+        .services-section {
+            padding: 60px 20px;
+            background: var(--bg);
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            padding: 40px 20px;
+            grid-template-columns: 1fr; /* Mobile: 1 per screen */
+            gap: 24px;
             max-width: 1000px;
             margin: 0 auto;
-            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); } /* Desktop: 2 per row */
         }
 
         .service-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 20px;
+            padding: 24px;
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            gap: 10px;
+            box-shadow: 0 10px 30px rgba(63, 52, 35, 0.05);
+            transition: transform 0.3s;
         }
 
-        .service-image { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+        .service-card:hover { transform: translateY(-5px); }
+        .service-image { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; }
 
         .service-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-size: 28px;
             color: var(--text);
-            word-wrap: break-word;
-            line-height: 1.2;
+            letter-spacing: 2px;
         }
 
-        .service-desc { font-size: 13px; color: #555; display: none; } /* Hide desc on mobile to save space */
-
-        /* --- Booking Form --- */
-        .booking-container { padding: 20px; display: flex; justify-content: center; flex: 1; }
+        /* BOOKING FORM */
+        .booking-container {
+            padding: 40px 20px 80px;
+            display: flex;
+            justify-content: center;
+            background: var(--bg);
+        }
         
         .appointment-panel {
             background: var(--surface);
             border: 2px solid var(--accent);
-            border-radius: 16px;
-            padding: 30px 20px;
+            border-radius: 24px;
+            padding: 40px 30px;
             width: 100%;
-            max-width: 600px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
+            max-width: 650px;
+            box-shadow: 0 20px 60px rgba(63, 52, 35, 0.08);
         }
 
         .appointment-panel h2 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 32px;
-            color: var(--accent);
+            font-size: 42px;
+            color: var(--accent-dark);
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
         }
 
-        .appointment-form { display: flex; flex-direction: column; gap: 15px; }
+        .appointment-form { display: flex; flex-direction: column; gap: 20px; }
 
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+        .form-row { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 500px) { .form-row { grid-template-columns: 1fr 1fr; } }
 
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-group label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--secondary); }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-dark); }
 
         .form-group input, .form-group textarea, .form-group select {
-            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 14px; background: var(--bg);
+            width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 15px; background: #fff; color: var(--text);
         }
 
-        .form-group input:focus { outline: none; border-color: var(--accent); }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 10px rgba(205, 170, 79, 0.2); }
 
-        .service-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .service-options { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        @media (min-width: 400px) { .service-options { grid-template-columns: 1fr 1fr; } }
         
         .service-option {
-            display: flex; align-items: center; gap: 8px; padding: 10px;
-            border: 1px solid var(--border); border-radius: 6px; cursor: pointer; background: var(--bg);
+            display: flex; align-items: center; gap: 10px; padding: 14px;
+            border: 1px solid var(--border); border-radius: 10px; cursor: pointer; background: #fff; font-size: 14px; font-weight: 600;
         }
 
-        .service-option input { width: auto; accent-color: var(--accent); }
-        .service-option span { font-size: 12px; font-weight: 600; line-height: 1.2; }
+        .service-option input { width: 18px; height: 18px; accent-color: var(--accent-dark); }
 
-        .time-row { display: grid; grid-template-columns: 1fr 80px; gap: 10px; }
+        .time-row { display: grid; grid-template-columns: 1fr 90px; gap: 10px; }
 
         .book-btn {
-            padding: 16px; border: none; border-radius: 6px; background: var(--accent); color: #111;
+            padding: 18px; border: none; border-radius: 999px; background: var(--accent-dark); color: white;
             font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s;
+            box-shadow: 0 10px 20px rgba(162, 132, 61, 0.3);
         }
-        .book-btn:hover { background: #b5995a; }
+        .book-btn:hover { background: var(--accent); transform: translateY(-2px); }
 
-        /* Legal Links */
         .legal-links {
-            display: flex; justify-content: space-between; margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);
         }
-        .legal-links a { color: var(--secondary); font-size: 12px; text-decoration: none; font-weight: 600; }
-        .legal-links a:hover { text-decoration: underline; }
+        .legal-links a { color: var(--muted); font-size: 13px; text-decoration: none; font-weight: 600; transition: 0.2s; }
+        .legal-links a:hover { color: var(--accent-dark); }
 
-        /* Footer */
+        /* FOOTER */
         footer {
-            background: #111111; color: rgba(255,255,255,0.4); text-align: center; padding: 20px; font-size: 12px; margin-top: auto;
+            background: var(--bg);
+            color: rgba(63, 52, 35, 0.4); /* Blends into background */
+            text-align: center; padding: 30px; font-size: 13px; font-weight: 600; letter-spacing: 1px;
+            margin-top: auto; border-top: 1px solid rgba(184, 151, 84, 0.1);
         }
 
-        /* Modal */
+        /* MODAL */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7);
-            display: none; justify-content: center; align-items: center; z-index: 1000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(63, 52, 35, 0.6);
+            backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 2000;
         }
         .modal-overlay.active { display: flex; }
-        .modal-content { background: var(--bg); padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; border: 2px solid var(--accent); }
-        .modal-content h3 { color: var(--accent); font-family: 'Bebas Neue', sans-serif; font-size: 28px; margin-bottom: 10px; }
-        .modal-close-btn { margin-top: 20px; padding: 10px 20px; background: var(--secondary); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-
-        @media (min-width: 768px) {
-            .service-desc { display: block; }
-            .hero h1 { font-size: 120px; }
-            .appointment-panel { padding: 40px; }
-        }
+        .modal-content { background: var(--surface); padding: 40px; border-radius: 20px; text-align: center; max-width: 400px; width: 90%; border: 2px solid var(--accent); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        .modal-content h3 { color: var(--accent-dark); font-family: 'Bebas Neue', sans-serif; font-size: 32px; margin-bottom: 15px; letter-spacing: 2px; }
+        .modal-content p { color: var(--text); line-height: 1.6; margin-bottom: 20px; }
+        .modal-close-btn { padding: 12px 30px; background: var(--accent-dark); color: white; border: none; border-radius: 999px; cursor: pointer; font-weight: bold; font-size: 14px; transition: 0.2s; }
+        .modal-close-btn:hover { background: var(--accent); }
     </style>
 </head>
 <body>
@@ -230,28 +254,26 @@
         <button class="hero-cta" onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})">Book Now ↓</button>
     </section>
 
-    <div class="services-grid">
-        <article class="service-card">
-            <img class="service-image" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80" alt="Haircut">
-            <h3 class="service-title">Haircut</h3>
-            <p class="service-desc">Precision styling and expert fades.</p>
-        </article>
-        <article class="service-card">
-            <img class="service-image" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80" alt="Beard Trimming">
-            <h3 class="service-title">Beard Trimming</h3>
-            <p class="service-desc">Clean shaping and edging.</p>
-        </article>
-        <article class="service-card">
-            <img class="service-image" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80" alt="Massage">
-            <h3 class="service-title">Massage</h3>
-            <p class="service-desc">Restorative massage for recovery.</p>
-        </article>
-        <article class="service-card">
-            <img class="service-image" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=600&q=80" alt="Spa">
-            <h3 class="service-title">Spa Treatment</h3>
-            <p class="service-desc">Luxury hot towel ritual.</p>
-        </article>
-    </div>
+    <section class="services-section">
+        <div class="services-grid">
+            <article class="service-card">
+                <img class="service-image" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80" alt="Haircut">
+                <h3 class="service-title">Haircut</h3>
+            </article>
+            <article class="service-card">
+                <img class="service-image" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80" alt="Beard Trimming">
+                <h3 class="service-title">Beard Trimming</h3>
+            </article>
+            <article class="service-card">
+                <img class="service-image" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80" alt="Massage">
+                <h3 class="service-title">Massage</h3>
+            </article>
+            <article class="service-card">
+                <img class="service-image" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=600&q=80" alt="Spa Treatment">
+                <h3 class="service-title">Spa Treatment</h3>
+            </article>
+        </div>
+    </section>
 
     <div class="booking-container" id="booking">
         <div class="appointment-panel">
@@ -336,7 +358,6 @@
                 return alert('Please fill all required fields and select at least one service.');
             }
 
-            // Basic AM/PM format adjustment for standard time input
             let [hours, minutes] = time.split(':');
             hours = parseInt(hours);
             if (ampm === 'PM' && hours < 12) hours += 12;
@@ -360,7 +381,6 @@
                 `;
                 document.getElementById('bookingModal').classList.add('active');
                 
-                // Clear form
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('appointmentDate').value = '';
