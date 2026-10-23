@@ -43,6 +43,11 @@ app.post('/api/appointments', async (req, res) => {
   if (phone.length > 10) return res.status(400).json({ error: 'Phone cannot exceed 10 characters' });
   if (notes && notes.length > 100) return res.status(400).json({ error: 'Notes cannot exceed 100 characters' });
 
+  // Server-side time validation
+  if (time < '09:00' || time > '22:00') {
+    return res.status(400).json({ error: 'Bookings are only available between 9:00 AM and 10:00 PM.' });
+  }
+
   const appointment = {
     id: nanoid(), name, phone, service, date, time, notes: notes || '', createdAt: new Date().toISOString()
   };
