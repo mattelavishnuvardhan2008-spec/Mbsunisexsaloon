@@ -7,28 +7,43 @@
   <link rel="icon" type="image/png" href="logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'DM Sans', sans-serif; background: #111111; color: white; margin: 0; padding: 0; }
-    header { background: #000; padding: 20px; border-bottom: 2px solid #C6A664; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+    :root {
+      --bg: #E2D3B3;
+      --surface: #FDF7E7;
+      --text: #3F3423;
+      --accent: #CDAA4F;
+      --accent-dark: #A2843D;
+      --border: rgba(184, 151, 84, 0.3);
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
+    
+    header { background: var(--surface); padding: 20px 30px; border-bottom: 2px solid var(--accent); display: flex; flex-direction: column; gap: 16px; align-items: flex-start; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
     @media (min-width: 768px) { header { flex-direction: row; justify-content: space-between; align-items: center; } }
-    header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 4px; color: #C6A664; margin: 0; }
+    
+    header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 4px; color: var(--accent-dark); margin: 0; }
     
     .admin-key-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; width: 100%; }
     @media (min-width: 768px) { .admin-key-row { width: auto; } }
-    .admin-key-row input { padding: 10px 14px; border-radius: 6px; border: 1px solid #333; background: #222; color: white; flex: 1; min-width: 200px; }
-    .admin-key-row button { padding: 10px 18px; border: none; background: #C6A664; color: #111; font-weight: bold; border-radius: 6px; cursor: pointer; }
     
-    main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+    .admin-key-row input { padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); background: #fff; color: var(--text); flex: 1; min-width: 200px; font-family: inherit; }
+    .admin-key-row input:focus { outline: none; border-color: var(--accent); }
+    .admin-key-row button { padding: 10px 20px; border: none; background: var(--accent-dark); color: white; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+    .admin-key-row button:hover { background: var(--accent); }
+    
+    main { padding: 30px; max-width: 1200px; margin: 0 auto; }
     
     .actions-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
-    .action-btn { padding: 10px 16px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: white; font-size: 14px; }
-    .btn-download { background: #2E7D32; }
-    .btn-delete { background: #C62828; }
+    .action-btn { padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: white; font-size: 14px; transition: 0.2s; }
+    .btn-download { background: #6b8e23; } /* Olive green fits the theme better than bright green */
+    .btn-download:hover { background: #557218; }
+    .btn-delete { background: #b23b3b; }
+    .btn-delete:hover { background: #8c2a2a; }
     
-    .appointments-table { width: 100%; border-collapse: collapse; background: #1A1A1A; border-radius: 8px; overflow: hidden; display: block; overflow-x: auto; }
-    .appointments-table th, .appointments-table td { padding: 14px; border-bottom: 1px solid #333; text-align: left; font-size: 14px; white-space: nowrap; }
-    .appointments-table th { background: #222; color: #C6A664; font-weight: bold; }
+    .appointments-table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 12px; overflow: hidden; display: block; overflow-x: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .appointments-table th, .appointments-table td { padding: 16px; border-bottom: 1px solid var(--border); text-align: left; font-size: 14px; white-space: nowrap; }
+    .appointments-table th { background: rgba(205, 170, 79, 0.15); color: var(--accent-dark); font-weight: 700; }
     
-    .alert { margin-bottom: 20px; padding: 16px; border-radius: 8px; background: rgba(198, 166, 100, 0.1); border: 1px solid #C6A664; color: #C6A664; }
+    .alert { margin-bottom: 20px; padding: 16px; border-radius: 8px; background: rgba(205, 170, 79, 0.15); border: 1px solid var(--accent); color: var(--text); font-weight: 600; }
   </style>
 </head>
 <body>
