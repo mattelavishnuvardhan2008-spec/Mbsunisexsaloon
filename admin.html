@@ -15,7 +15,7 @@
       --accent-dark: #A2843D;
       --border: rgba(184, 151, 84, 0.3);
     }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; }
     
     header { background: var(--surface); padding: 20px 30px; border-bottom: 2px solid var(--accent); display: flex; flex-direction: column; gap: 16px; align-items: flex-start; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
     @media (min-width: 768px) { header { flex-direction: row; justify-content: space-between; align-items: center; } }
@@ -30,16 +30,27 @@
     .admin-key-row button { padding: 10px 20px; border: none; background: var(--accent-dark); color: white; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s; }
     .admin-key-row button:hover { background: var(--accent); }
     
-    main { padding: 30px; max-width: 1200px; margin: 0 auto; }
+    main { padding: 30px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; }
     
     .actions-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
     .action-btn { padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: white; font-size: 14px; transition: 0.2s; }
-    .btn-download { background: #6b8e23; } /* Olive green fits the theme better than bright green */
+    .btn-download { background: #6b8e23; }
     .btn-download:hover { background: #557218; }
     .btn-delete { background: #b23b3b; }
     .btn-delete:hover { background: #8c2a2a; }
     
-    .appointments-table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 12px; overflow: hidden; display: block; overflow-x: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    /* Table Stability Fix */
+    .table-container {
+        min-height: 300px; /* Prevents collapse when empty */
+        width: 100%;
+        background: var(--surface);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        overflow-x: auto;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .appointments-table { width: 100%; border-collapse: collapse; }
     .appointments-table th, .appointments-table td { padding: 16px; border-bottom: 1px solid var(--border); text-align: left; font-size: 14px; white-space: nowrap; }
     .appointments-table th { background: rgba(205, 170, 79, 0.15); color: var(--accent-dark); font-weight: 700; }
     
@@ -62,20 +73,22 @@
       <button class="action-btn btn-delete" onclick="deleteAppointments()">Delete All</button>
     </div>
 
-    <table class="appointments-table" id="appointmentsTable">
-      <thead>
-        <tr>
-          <th>Chair</th>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Service</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="table-container">
+        <table class="appointments-table" id="appointmentsTable">
+          <thead>
+            <tr>
+              <th>Chair</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Service</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+    </div>
   </main>
 
   <script>
