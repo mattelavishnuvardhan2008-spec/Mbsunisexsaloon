@@ -39,6 +39,10 @@ app.post('/api/appointments', async (req, res) => {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  if (name.length > 50) return res.status(400).json({ error: 'Name cannot exceed 50 characters' });
+  if (phone.length > 10) return res.status(400).json({ error: 'Phone cannot exceed 10 characters' });
+  if (notes && notes.length > 100) return res.status(400).json({ error: 'Notes cannot exceed 100 characters' });
+
   const appointment = {
     id: nanoid(), name, phone, service, date, time, notes: notes || '', createdAt: new Date().toISOString()
   };
