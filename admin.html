@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BARBERX Admin Panel</title>
+  <!-- FAVICON ADDED HERE -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -127,7 +130,252 @@
     <div class="alert" id="adminAlert">Use the owner key to load appointment details.</div>
     
     <div class="actions-bar">
-      <button class="action-btn btn-download" onclick="downloadCSV()">📂 Download Excel (CSV)</button>
+      <button class="action-btn btn-download" onclick="downloadCSV()">📥 Download Excel (CSV)</button>
+      <button class="action-btn btn-delete" onclick="deleteAppointments()">🗑️ Delete All</button>
+    </div>
+
+    <table class="appointments-table" id="appointmentsTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Service</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script>
+    let currentAppointments = [];
+
+    async function loadAppointments() {
+      const key = document.getElementById('adminKey').value.trim();
+      const alertBox = document.getElementById('adminAlert');
+      const tbody = document.querySelector('#appointmentsTable tbody');
+      tbody.innerHTML = '';
+      currentAppointments = [];
+
+      if (!key) {
+        alertBox.textContent = 'Owner key is required.';
+        return;
+      }
+
+      alertBox.textContent = 'Loading...';
+
+      try {
+        const response = await fetch('/api/admin/appointments', {
+          headers: { authorization: `Bearer ${key}` }
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Unable to load appointments');
+
+        if (!data.appointments.length) {
+          alertBox.textContent = 'No appointments found.';
+          return;
+        }
+
+        currentAppointments = data.appointments;
+        alertBox.textContent = `Loaded ${data.appointments.length} appointment(s).`;
+        
+        data.appointments.forEach((appointment) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${appointment.name}</td>
+            <td>${appointment.phone}</td>
+            <td>${appointment.service}</td>
+            <td>${appointment.date}</td>
+            <td>${appointment.time}</td>
+            <td>${appointment.notes || '—'}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        alertBox.textContent = `Error: ${error.message}`;
+      }
+    }
+
+    function downloadCSV() {
+        if (currentAppointments.length === 0) {
+            return alert("No appointments to download. Load them first.");
+        }
+
+        const headers = ['Name', 'Phone', 'Service', 'Date', 'Time', 'Notes'];
+        const rows = currentAppointments.map(app => [
+            app.name, app.phone, app.service, app.date, app.time, app.notes || ''
+        ].map(val => `"${val.toString().replace(/"/g, '""')}"`).join(','));
+        
+        const csvContent = headers.join(',') + '\n' + rows.join('\n');
+        
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", `BarberX_Appointments_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    async function deleteAppointments() {
+        const key = document.getElementById('adminKey').value.trim();
+        if (!key) return alert("Enter admin key first to authorize deletion.");
+        if (!confirm("Are you sure you want to delete ALL appointments? This cannot be undone.")) return;
+
+        try {
+            const response = await fetch('/api/admin/appointments', {
+                method: 'DELETE',
+                headers: { authorization: `Bearer ${key}` }
+            });
+
+            if (!response.ok) throw new Error('Failed to delete');
+            
+            document.querySelector('#appointmentsTable tbody').innerHTML = '';
+            document.getElementById('adminAlert').textContent = 'All appointments have been successfully deleted.';
+            currentAppointments = [];
+        } catch (error) {
+            alert("Error deleting: " + error.message);
+        }
+    }
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BARBERX Admin Panel</title>
+  <!-- FAVICON ADDED HERE -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0f1016;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #11131a;
+      padding: 24px;
+      border-bottom: 1px solid rgba(255,107,53,0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    @media (min-width: 768px) {
+      header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+    header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 4px;
+      color: #ff6b35;
+      margin: 0;
+    }
+    .admin-key-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 100%;
+    }
+    @media (min-width: 768px) {
+      .admin-key-row { width: auto; }
+    }
+    .admin-key-row input {
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,107,53,0.2);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      flex: 1;
+      min-width: 200px;
+    }
+    .admin-key-row button {
+      padding: 12px 18px;
+      border: none;
+      background: #ff6b35;
+      color: #11131a;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    main {
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .actions-bar {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      color: white;
+    }
+    .btn-download { background: #4CAF50; }
+    .btn-delete { background: #dc3545; }
+    .appointments-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+      overflow-x: auto;
+      display: block;
+    }
+    .appointments-table th,
+    .appointments-table td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align: left;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .appointments-table th {
+      color: rgba(255,255,255,0.75);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .alert {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255,107,53,0.08);
+      border: 1px solid rgba(255,107,53,0.2);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BARBERX Admin</h1>
+    <div class="admin-key-row">
+      <input id="adminKey" type="password" placeholder="Enter owner admin key" />
+      <button onclick="loadAppointments()">Load</button>
+    </div>
+  </header>
+  <main>
+    <div class="alert" id="adminAlert">Use the owner key to load appointment details.</div>
+    
+    <div class="actions-bar">
+      <button class="action-btn btn-download" onclick="downloadCSV()">📥 Download Excel (CSV)</button>
       <button class="action-btn btn-delete" onclick="deleteAppointments()">🗑️ Delete All</button>
     </div>
 
