@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BARBERX - Premium Grooming</title>
+    <title>MBS - Premium Grooming</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #E2D3B3;
-            --surface: #F2E8CF;
-            --surface-strong: #D3BE90;
-            --text: #3F3423;
-            --muted: #7E6A52;
-            --accent: #CDAA4F;
-            --accent-soft: rgba(205, 170, 79, 0.18);
-            --accent-glow: rgba(205, 170, 79, 0.28);
+            --bg: #F9F6F0; /* Cream */
+            --text: #111111; /* Black */
+            --accent: #C6A664; /* Gold */
+            --secondary: #D97A42; /* Orange */
+            --surface: #FFFFFF;
+            --border: rgba(198, 166, 100, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,588 +23,344 @@
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(253, 247, 231, 0.94);
-            backdrop-filter: blur(14px);
+            background: #111111;
             padding: 16px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 2000;
-            border-bottom: 1px solid rgba(143, 112, 60, 0.12);
-            box-shadow: 0 10px 40px rgba(63, 52, 35, 0.08);
+            border-bottom: 2px solid var(--accent);
         }
 
         .logo {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 30px;
+            font-size: 32px;
             color: var(--accent);
-            letter-spacing: 6px;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.12);
+            letter-spacing: 4px;
         }
+
+        .nav-links a {
+            color: var(--bg);
+            text-decoration: none;
+            font-weight: 700;
+            border: 1px solid var(--accent);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover { background: var(--accent); color: #111; }
 
         .hero {
             width: 100%;
-            min-height: 100vh;
+            padding: 80px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle at top center, #FEF6E4 0%, #E9D5A2 30%, #B89A55 100%);
-            padding: 100px 20px 80px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            color: #3F3423;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            left: -20%;
-            width: 140%;
-            height: 140%;
-            background: radial-gradient(circle at 50% 40%, rgba(205,170,79,0.18), transparent 60%);
-            animation: breathe 6s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .hero-eyebrow {
-            font-size: 13px;
-            letter-spacing: 5px;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 18px;
-            opacity: 0.9;
+            background: linear-gradient(180deg, #111111 0%, #222222 100%);
+            color: var(--bg);
         }
 
         .hero h1 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 96px;
-            line-height: 0.9;
-            margin-bottom: 24px;
-            color: var(--text);
-            letter-spacing: 8px;
-            text-shadow: 0 2px 10px rgba(63, 52, 35, 0.08);
-        }
-
-        .hero h1 span {
+            font-size: 80px;
+            line-height: 1;
             color: var(--accent);
-            text-shadow: 0 0 60px rgba(184, 151, 84, 0.5);
+            letter-spacing: 4px;
+            margin-bottom: 10px;
         }
 
-        .hero p {
+        .hero .tagline {
             font-size: 18px;
-            margin-bottom: 32px;
-            color: rgba(63, 52, 35, 0.72);
-            letter-spacing: 1px;
-            max-width: 640px;
-        }
-
-        .hero .hero-cta {
-            padding: 14px 42px;
-            font-size: 14px;
-            letter-spacing: 3px;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            border-radius: 999px;
-            box-shadow: 0 18px 50px rgba(92, 67, 34, 0.18);
-            border: none;
-            cursor: pointer;
-            color: white;
-            background: #A2843D;
+            color: var(--secondary);
+            margin-bottom: 30px;
+            font-weight: 300;
         }
 
-        .hero .hero-cta:hover { background: #8f7734; }
+        .hero-cta {
+            padding: 14px 32px;
+            background: var(--accent);
+            color: #111;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 24px;
-            padding: 40px 32px 80px;
-            max-width: 1180px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 40px 20px;
+            max-width: 1000px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .service-card {
-            background: #ffffff;
-            border: 1px solid var(--surface);
-            border-radius: 24px;
-            padding: 32px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
-            box-shadow: 0 18px 65px rgba(63, 52, 35, 0.05);
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
 
-        .service-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(184, 151, 84, 0.45);
-            box-shadow: 0 24px 80px rgba(63, 52, 35, 0.08);
-        }
-
-        .service-image {
-            width: 100%;
-            border-radius: 18px;
-            height: 210px;
-            object-fit: cover;
-            border: 1px solid rgba(184, 151, 84, 0.18);
-        }
-
-        .service-icon {
-            width: 68px;
-            height: 68px;
-            display: grid;
-            place-items: center;
-            border-radius: 18px;
-            background: rgba(184, 151, 84, 0.16);
-            font-size: 30px;
-            color: var(--accent);
-        }
+        .service-image { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
 
         .service-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 32px;
-            letter-spacing: 2px;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
             color: var(--text);
+            word-wrap: break-word;
+            line-height: 1.2;
         }
 
-        .service-price {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 42px;
-            color: var(--accent);
-            letter-spacing: 1px;
-        }
+        .service-desc { font-size: 13px; color: #555; display: none; } /* Hide desc on mobile to save space */
 
-        .service-desc {
-            color: rgba(63, 52, 35, 0.78);
-            line-height: 1.75;
-            font-size: 15px;
-        }
-
+        /* --- Booking Form --- */
+        .booking-container { padding: 20px; display: flex; justify-content: center; flex: 1; }
+        
         .appointment-panel {
-            background: #ffffff;
-            border: 1px solid var(--surface);
-            border-radius: 24px;
-            padding: 48px;
-            margin: 0 auto 80px;
-            max-width: 760px;
-            box-shadow: 0 18px 80px rgba(63, 52, 35, 0.08);
+            background: var(--surface);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 30px 20px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
         }
 
         .appointment-panel h2 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 50px;
-            margin-bottom: 16px;
-            color: var(--text);
-            letter-spacing: 4px;
-        }
-
-        .appointment-panel p {
-            color: rgba(63, 52, 35, 0.72);
-            margin-bottom: 28px;
-            line-height: 1.8;
-        }
-
-        .appointment-form { display: grid; gap: 18px; }
-
-        .form-group {
-            display: grid;
-            gap: 8px;
-            text-align: left;
-            position: relative;
-        }
-
-        .form-group label {
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-size: 32px;
             color: var(--accent);
-            font-weight: 700;
-            cursor: default;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border-radius: 10px;
-            border: 1px solid var(--surface);
-            background: #ffffff;
-            color: var(--text);
-            font-size: 15px;
-            position: relative;
-            z-index: 1;
-            cursor: text;
+        .appointment-form { display: flex; flex-direction: column; gap: 15px; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--secondary); }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 14px; background: var(--bg);
         }
 
-        .form-group input[type="date"],
-        .form-group input[type="time"] {
-            cursor: pointer;
-            width: 100%;
-            border: 1px solid var(--surface);
-            border-radius: 10px;
-            background: white;
-            color: var(--text);
-            padding: 14px 16px;
-            box-sizing: border-box;
-            z-index: 2;
-        }
+        .form-group input:focus { outline: none; border-color: var(--accent); }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 14px rgba(184, 151, 84, 0.24);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
-        }
-
-        .service-options {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
-        }
-
+        .service-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        
         .service-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 16px;
-            border-radius: 16px;
-            border: 1px solid var(--surface-strong);
-            background: #ffffff;
-            cursor: pointer;
-            transition: border-color 0.2s, background 0.2s, transform 0.2s;
-            font-size: 14px;
-            color: var(--text);
+            display: flex; align-items: center; gap: 8px; padding: 10px;
+            border: 1px solid var(--border); border-radius: 6px; cursor: pointer; background: var(--bg);
         }
 
-        .service-hint {
-            margin-top: 8px;
-            font-size: 12px;
-            color: rgba(63, 52, 35, 0.58);
-        }
+        .service-option input { width: auto; accent-color: var(--accent); }
+        .service-option span { font-size: 12px; font-weight: 600; line-height: 1.2; }
 
-        .service-option:hover {
-            border-color: rgba(180, 83, 9, 0.45);
-            background: rgba(180, 83, 9, 0.05);
-            transform: translateY(-1px);
-        }
-
-        .service-option input {
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border: 1px solid rgba(63, 52, 35, 0.28);
-            border-radius: 4px;
-            background: transparent;
-            flex-shrink: 0;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .service-option input:checked {
-            border-color: var(--accent);
-            background: var(--accent);
-        }
-
-        .service-option span { color: var(--text); font-size: 14px; line-height: 1.4; }
+        .time-row { display: grid; grid-template-columns: 1fr 80px; gap: 10px; }
 
         .book-btn {
-            padding: 18px 24px;
-            border: none;
-            border-radius: 999px;
-            background: var(--accent);
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 900;
-            box-shadow: 0 18px 40px rgba(180, 83, 9, 0.25);
-            transition: transform 0.2s ease, filter 0.2s ease;
+            padding: 16px; border: none; border-radius: 6px; background: var(--accent); color: #111;
+            font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s;
+        }
+        .book-btn:hover { background: #b5995a; }
+
+        /* Legal Links */
+        .legal-links {
+            display: flex; justify-content: space-between; margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border);
+        }
+        .legal-links a { color: var(--secondary); font-size: 12px; text-decoration: none; font-weight: 600; }
+        .legal-links a:hover { text-decoration: underline; }
+
+        /* Footer */
+        footer {
+            background: #111111; color: rgba(255,255,255,0.4); text-align: center; padding: 20px; font-size: 12px; margin-top: auto;
         }
 
-        .book-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
-
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 700;
-            border: 1px solid rgba(184, 151, 84, 0.35);
-            padding: 10px 16px;
-            border-radius: 10px;
-            transition: background 0.2s, border-color 0.2s;
-            background: rgba(255, 255, 255, 0.72);
-        }
-
-        .nav-links a:hover {
-            background: rgba(249, 244, 235, 0.95);
-            border-color: rgba(184, 151, 84, 0.45);
-        }
-
+        /* Modal */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
         }
         .modal-overlay.active { display: flex; }
-        .modal-content {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 24px;
-            max-width: 480px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-            border: 1px solid var(--accent);
-            animation: popIn 0.3s ease-out;
-        }
-        @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .modal-content h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            color: var(--accent);
-            font-size: 36px;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-        }
-        .modal-content p {
-            color: var(--text);
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        .modal-close-btn {
-            margin-top: 20px;
-            padding: 14px 30px;
-            border: none;
-            border-radius: 999px;
-            background: var(--accent);
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 14px;
-            letter-spacing: 1px;
-            transition: transform 0.2s;
-        }
-        .modal-close-btn:hover { transform: scale(1.05); }
+        .modal-content { background: var(--bg); padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; border: 2px solid var(--accent); }
+        .modal-content h3 { color: var(--accent); font-family: 'Bebas Neue', sans-serif; font-size: 28px; margin-bottom: 10px; }
+        .modal-close-btn { margin-top: 20px; padding: 10px 20px; background: var(--secondary); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
 
-        @media (max-width: 980px) {
-            .services-grid { grid-template-columns: 1fr; padding: 24px 20px 60px; }
-            .form-row { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 620px) {
-            nav { padding: 12px 18px; }
-            .hero h1 { font-size: 64px; letter-spacing: 6px; }
-            .hero p { font-size: 16px; }
-            .hero .hero-cta { width: 100%; max-width: 320px; padding: 14px 0; }
-            .appointment-panel { padding: 28px 20px; }
+        @media (min-width: 768px) {
+            .service-desc { display: block; }
+            .hero h1 { font-size: 120px; }
+            .appointment-panel { padding: 40px; }
         }
     </style>
 </head>
 <body>
     <nav>
-        <div class="logo">BARBERX</div>
+        <div class="logo">MBS</div>
         <div class="nav-links">
             <a href="admin.html">Owner Admin</a>
         </div>
     </nav>
 
     <section class="hero">
-        <p class="hero-eyebrow">Premium Grooming</p>
-        <h1>BARBER<span>X</span></h1>
-        <p>Sharp cuts, expert beard trims, deep massages and luxury spa care — all in one elevated barber shop experience.</p>
-        <button class="hero-cta" type="button" onclick="scrollToBooking()">
-            Book Appointment ↓
-        </button>
+        <h1>MBS</h1>
+        <p class="tagline">Groom Your Personality</p>
+        <button class="hero-cta" onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})">Book Now ↓</button>
     </section>
 
-    <main>
-        <div class="services-grid">
-            <article class="service-card">
-                <img class="service-image" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=900&q=80" alt="Barber haircut">
-                <div class="service-icon">💈</div>
-                <h3 class="service-title">Haircut</h3>
-                <div class="service-price">₹250</div>
-                <p class="service-desc">Precision styling and expert fades to keep your look sharp and groomed.</p>
-            </article>
+    <div class="services-grid">
+        <article class="service-card">
+            <img class="service-image" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80" alt="Haircut">
+            <h3 class="service-title">Haircut</h3>
+            <p class="service-desc">Precision styling and expert fades.</p>
+        </article>
+        <article class="service-card">
+            <img class="service-image" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80" alt="Beard Trimming">
+            <h3 class="service-title">Beard Trimming</h3>
+            <p class="service-desc">Clean shaping and edging.</p>
+        </article>
+        <article class="service-card">
+            <img class="service-image" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80" alt="Massage">
+            <h3 class="service-title">Massage</h3>
+            <p class="service-desc">Restorative massage for recovery.</p>
+        </article>
+        <article class="service-card">
+            <img class="service-image" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=600&q=80" alt="Spa">
+            <h3 class="service-title">Spa Treatment</h3>
+            <p class="service-desc">Luxury hot towel ritual.</p>
+        </article>
+    </div>
 
-            <article class="service-card">
-                <img class="service-image" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=900&q=80" alt="Beard trimming">
-                <div class="service-icon">🧔</div>
-                <h3 class="service-title">Beard Trimming</h3>
-                <div class="service-price">₹150</div>
-                <p class="service-desc">Clean shaping, edging, and conditioning for a polished beard finish.</p>
-            </article>
-
-            <article class="service-card">
-                <img class="service-image" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=900&q=80" alt="Relaxing massage">
-                <div class="service-icon">💆</div>
-                <h3 class="service-title">Massage</h3>
-                <div class="service-price">₹200</div>
-                <p class="service-desc">Relax the neck, shoulders and scalp with a restorative massage built for grooming recovery.</p>
-            </article>
-
-            <article class="service-card">
-                <img class="service-image" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=900&q=80" alt="Spa treatment">
-                <div class="service-icon">🧖</div>
-                <h3 class="service-title">Spa Treatment</h3>
-                <div class="service-price">₹500</div>
-                <p class="service-desc">Hot towel ritual, facial care, and premium spa touches for a luxury grooming reset.</p>
-            </article>
-        </div>
-
-        <section class="appointment-panel" id="appointmentSection">
+    <div class="booking-container" id="booking">
+        <div class="appointment-panel">
             <h2>Book Your Visit</h2>
-            <p>Reserve your slot with our barber team. Choose your service, preferred date, time and tell us how you'd like to be styled.</p>
-
             <div class="appointment-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="customerName">Name</label>
-                        <!-- Added maxlength="50" -->
+                        <label>Name</label>
                         <input type="text" id="customerName" placeholder="John Doe" maxlength="50">
                     </div>
                     <div class="form-group">
-                        <label for="customerPhone">Phone</label>
-                        <!-- Added maxlength="10" -->
+                        <label>Phone</label>
                         <input type="tel" id="customerPhone" placeholder="9876543210" maxlength="10">
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Services</label>
-                        <div class="service-options">
-                            <label class="service-option">
-                                <input type="checkbox" name="service" value="Haircut">
-                                <span>Haircut — ₹250</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="service" value="Beard Trimming">
-                                <span>Beard Trimming — ₹150</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="service" value="Massage">
-                                <span>Massage — ₹200</span>
-                            </label>
-                            <label class="service-option">
-                                <input type="checkbox" name="service" value="Spa Treatment">
-                                <span>Spa Treatment — ₹500</span>
-                            </label>
-                        </div>
-                        <div class="service-hint">Choose up to 4 services at once.</div>
-                    </div>
-                    <div class="form-group date-time-group">
-                        <label for="appointmentDate">Date</label>
-                        <input type="date" id="appointmentDate">
+                <div class="form-group">
+                    <label>Services</label>
+                    <div class="service-options">
+                        <label class="service-option"><input type="checkbox" name="service" value="Haircut"><span>Haircut</span></label>
+                        <label class="service-option"><input type="checkbox" name="service" value="Beard Trimming"><span>Beard Trimming</span></label>
+                        <label class="service-option"><input type="checkbox" name="service" value="Massage"><span>Massage</span></label>
+                        <label class="service-option"><input type="checkbox" name="service" value="Spa Treatment"><span>Spa Treatment</span></label>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group date-time-group">
-                        <label for="appointmentTime">Time</label>
-                        <input type="time" id="appointmentTime">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="appointmentDate">
                     </div>
                     <div class="form-group">
-                        <label for="notes">Additional Notes</label>
-                        <!-- Added maxlength="100" -->
-                        <textarea id="notes" rows="3" placeholder="Preferred style, allergies, or special requests" maxlength="100"></textarea>
+                        <label>Time (9 AM - 10 PM)</label>
+                        <div class="time-row">
+                            <input type="time" id="appointmentTime" min="09:00" max="22:00">
+                            <select id="timeAmPm">
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>
+                        </div>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Notes (Optional)</label>
+                    <textarea id="notes" rows="2" maxlength="100" placeholder="Preferred style..."></textarea>
                 </div>
 
                 <button class="book-btn" onclick="bookAppointment()">Confirm Appointment</button>
+                
+                <div class="legal-links">
+                    <a href="terms.html">Terms & Conditions</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
+
+    <footer>
+        All rights reserved to mbsunisexsalon
+    </footer>
 
     <div class="modal-overlay" id="bookingModal">
         <div class="modal-content">
             <h3>Booking Confirmed!</h3>
             <p id="modalMessage"></p>
-            <button class="modal-close-btn" onclick="closeModal()">Awesome, thanks!</button>
+            <button class="modal-close-btn" onclick="closeModal()">Close</button>
         </div>
     </div>
 
     <script>
-        const servicePrices = {
-            'Haircut': 250,
-            'Beard Trimming': 150,
-            'Massage': 200,
-            'Spa Treatment': 500
-        };
-
-        function scrollToBooking() {
-            document.getElementById('appointmentSection').scrollIntoView({ behavior: 'smooth' });
-        }
-
         async function bookAppointment() {
             const name = document.getElementById('customerName').value.trim();
             const phone = document.getElementById('customerPhone').value.trim();
-            const selectedServices = Array.from(document.querySelectorAll('input[name="service"]:checked'))
-                .map((input) => input.value);
             const date = document.getElementById('appointmentDate').value;
-            const time = document.getElementById('appointmentTime').value;
+            let time = document.getElementById('appointmentTime').value;
+            const ampm = document.getElementById('timeAmPm').value;
             const notes = document.getElementById('notes').value.trim();
+            const selectedServices = Array.from(document.querySelectorAll('input[name="service"]:checked')).map(i => i.value);
 
-            if (!name || !phone || !date || !time) {
-                alert('Please fill in your name, phone, date and time to book.');
-                return;
+            if (!name || !phone || !date || !time || !selectedServices.length) {
+                return alert('Please fill all required fields and select at least one service.');
             }
 
-            if (!selectedServices.length) {
-                alert('Please select at least one service.');
-                return;
-            }
-
-            const service = selectedServices.join(', ');
-            const fee = selectedServices.reduce((sum, svc) => sum + (servicePrices[svc] || 0), 0);
+            // Basic AM/PM format adjustment for standard time input
+            let [hours, minutes] = time.split(':');
+            hours = parseInt(hours);
+            if (ampm === 'PM' && hours < 12) hours += 12;
+            if (ampm === 'AM' && hours === 12) hours = 0;
+            const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes}`;
 
             try {
                 const response = await fetch('/api/appointments', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, phone, service, date, time, notes })
+                    body: JSON.stringify({ name, phone, service: selectedServices.join(', '), date, time: formattedTime, notes })
                 });
 
                 const data = await response.json();
-                if (!response.ok) throw new Error(data.error || 'Unable to book appointment');
-
-                const appointment = data.appointment;
+                if (!response.ok) throw new Error(data.error);
 
                 document.getElementById('modalMessage').innerHTML = `
-                    <strong>${appointment.name}</strong>, your ${appointment.service} booking is confirmed for <strong>${appointment.date}</strong> at <strong>${appointment.time}</strong>.<br><br>
-                    Total due at arrival: <strong>₹${fee}</strong>
-                    ${appointment.notes ? `<br><br>Notes: ${appointment.notes}` : ''}
+                    Thank you, <strong>${name}</strong>!<br><br>
+                    Your booking for <strong>${selectedServices.join(', ')}</strong> is confirmed for <strong>${date}</strong> at <strong>${time} ${ampm}</strong>.<br><br>
+                    You have been assigned to <strong>Chair ${data.chair}</strong>.
                 `;
                 document.getElementById('bookingModal').classList.add('active');
                 
+                // Clear form
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('appointmentDate').value = '';
@@ -618,9 +373,7 @@
             }
         }
 
-        function closeModal() {
-            document.getElementById('bookingModal').classList.remove('active');
-        }
+        function closeModal() { document.getElementById('bookingModal').classList.remove('active'); }
     </script>
 </body>
 </html>
