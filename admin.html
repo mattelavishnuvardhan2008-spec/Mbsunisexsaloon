@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>mbs Admin Panel</title>
+  <title>MBS Admin Panel</title>
   <link rel="icon" type="image/png" href="logo.png">
   
-  <!-- Added Poppins for the logo font -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&family=Poppins:wght@800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&family=Poppins:wght@800;900&display=swap" rel="stylesheet">
   
   <style>
     :root { 
@@ -24,15 +23,14 @@
     header { background: var(--surface); padding: 20px 30px; border-bottom: 2px solid var(--accent); display: flex; flex-direction: column; gap: 16px; align-items: flex-start; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
     @media (min-width: 768px) { header { flex-direction: row; justify-content: space-between; align-items: center; } }
     
-    /* UPDATED: Font for mbs Admin */
+    /* UPDATED: Thick font for MBS Admin */
     header h1 { 
       font-family: 'Poppins', sans-serif; 
-      font-weight: 800; 
+      font-weight: 900; 
       font-size: 28px; 
       letter-spacing: -1px; 
       color: var(--accent-dark); 
       margin: 0; 
-      text-transform: lowercase;
     }
     
     .admin-key-row { display: flex; gap: 12px; width: 100%; }
@@ -59,7 +57,7 @@
 </head>
 <body>
   <header>
-    <h1>mbs Admin</h1>
+    <h1>MBS Admin</h1>
     <div class="admin-key-row">
       <input id="adminKey" type="password" placeholder="Enter admin key" />
       <button onclick="loadAppointments()">Load</button>
