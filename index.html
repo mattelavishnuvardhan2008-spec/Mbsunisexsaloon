@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MBS - Premium Grooming</title>
     <link rel="icon" type="image/png" href="logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Load Poppins for the logo, and Bebas Neue / DM Sans for the rest -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&family=Poppins:wght@800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --bg: #F9F6F0;
@@ -28,7 +31,17 @@
             display: flex; justify-content: space-between; align-items: center;
             background: var(--surface); border-bottom: 2px solid var(--accent); z-index: 1000;
         }
-        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--accent-dark); letter-spacing: 4px; }
+        
+        /* CHANGED: Font for the MBS Logo */
+        .logo { 
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 32px;
+            color: var(--accent-dark);
+            letter-spacing: -1.5px; /* Tightens the letters to look like a logo */
+            text-transform: lowercase;
+        }
+        
         .nav-links a { color: var(--text); text-decoration: none; font-weight: 700; border: 1px solid var(--accent); padding: 8px 16px; border-radius: 4px; font-size: 14px; transition: 0.3s; }
         .nav-links a:hover { background: var(--accent); color: white; }
 
@@ -37,7 +50,19 @@
             width: 100%; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; background: radial-gradient(circle at top center, #FEF6E4 0%, #E9D5A2 40%, #D3BE90 100%); padding: 100px 20px 40px;
         }
-        .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 15vw, 140px); line-height: 0.9; color: var(--accent-dark); letter-spacing: 8px; margin-bottom: 10px; }
+        
+        /* CHANGED: Font for the MBS Hero Text */
+        .hero h1 { 
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: clamp(80px, 15vw, 140px); 
+            line-height: 0.9; 
+            color: var(--accent-dark); 
+            letter-spacing: -3px; /* Tightens letters */
+            text-transform: lowercase;
+            margin-bottom: 10px; 
+        }
+        
         .hero .tagline { font-size: clamp(16px, 3vw, 20px); letter-spacing: 6px; text-transform: uppercase; color: var(--text); margin-bottom: 30px; font-weight: 400; }
         .hero p { max-width: 500px; margin: 0 auto 40px; font-size: 16px; line-height: 1.6; }
         .btn-primary { padding: 16px 32px; background: var(--accent-dark); color: white; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; transition: 0.2s; }
@@ -99,7 +124,17 @@
 
         /* FOOTER */
         footer { background: var(--surface); color: var(--text); padding: 40px 20px; text-align: center; border-top: 2px solid var(--accent); }
-        .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--accent-dark); letter-spacing: 4px; }
+        
+        .footer-logo { 
+            font-family: 'Poppins', sans-serif; 
+            font-weight: 800; 
+            font-size: 40px; 
+            color: var(--accent-dark); 
+            letter-spacing: -1.5px; 
+            text-transform: lowercase;
+            margin-bottom: 10px;
+        }
+        
         .legal-links { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
         .legal-links a { color: var(--muted); font-size: 13px; text-decoration: none; font-weight: 600; }
         .legal-links a:hover { color: var(--accent-dark); }
@@ -114,12 +149,12 @@
 </head>
 <body>
     <nav>
-        <div class="logo">MBS</div>
+        <div class="logo">mbs</div>
         <div class="nav-links"><a href="admin.html">Owner Admin</a></div>
     </nav>
 
     <section class="hero">
-        <h1>MBS</h1>
+        <h1>mbs</h1>
         <p class="tagline">Groom Your Personality</p>
         <p>Precision haircuts, expert beard care, and luxury spa treatments in a calm, well-run studio.</p>
         <button class="btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">View Services ↓</button>
@@ -211,13 +246,14 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Date</label>
-                        <!-- The 'min' attribute will be set via JS to today's date -->
                         <input type="date" id="appointmentDate">
                     </div>
                     <div class="form-group">
-                        <label>Start Time (9 AM - 10 PM)</label>
+                        <!-- CHANGED: Text label to 7 AM -->
+                        <label>Start Time (7 AM - 10 PM)</label>
                         <div class="time-row">
-                            <input type="time" id="appointmentTime" min="09:00" max="22:00">
+                            <!-- CHANGED: min="07:00" -->
+                            <input type="time" id="appointmentTime" min="07:00" max="22:00">
                             <select id="timeAmPm">
                                 <option value="AM">AM</option>
                                 <option value="PM">PM</option>
@@ -237,7 +273,7 @@
     </section>
 
     <footer>
-        <div class="footer-logo">MBS</div>
+        <div class="footer-logo">mbs</div>
         <p style="font-size: 12px; letter-spacing: 4px; margin-bottom: 20px;">GROOM YOUR PERSONALITY</p>
         <p style="font-size: 14px; color: var(--muted);">Near TKR Busstop, Meerpet, LB Nagar, Hyderabad</p>
         <p style="font-size: 12px; margin-top: 20px; opacity: 0.5;">© 2026 MBS. All rights reserved to mbsunisexsalon.</p>
@@ -401,22 +437,20 @@
             if (ampm === 'AM' && hours === 12) hours = 0;
             const formattedStartTime = `${hours.toString().padStart(2, '0')}:${minutes}`;
 
-            // --- PREVENT PAST BOOKINGS (FRONTEND) ---
             const now = new Date();
-            // Create a date object from the selected date and time
             const selectedDateTime = new Date(`${date}T${formattedStartTime}:00`);
             
             if (selectedDateTime < now) {
                 return alert('You cannot book an appointment in the past. Please select a future date and time.');
             }
-            // ----------------------------------------
 
             let startDate = new Date(`2000-01-01T${formattedStartTime}`);
             startDate.setMinutes(startDate.getMinutes() + totalDuration);
             const formattedEndTime = startDate.toTimeString().slice(0, 5);
 
-            if (formattedStartTime < '09:00' || formattedEndTime > '22:00') {
-                return alert('The total duration of your services exceeds our operating hours (9 AM - 10 PM). Please pick an earlier time or fewer services.');
+            // CHANGED: Check for 07:00 instead of 09:00
+            if (formattedStartTime < '07:00' || formattedEndTime > '22:00') {
+                return alert('The total duration of your services exceeds our operating hours (7 AM - 10 PM). Please pick an earlier time or fewer services.');
             }
 
             try {
@@ -455,12 +489,10 @@
 
         function closeModal() { document.getElementById('bookingModal').classList.remove('active'); }
 
-        // Initialize Page
         window.onload = () => {
             renderServices('all');
             renderBookingForm();
             
-            // --- SET MINIMUM DATE TO TODAY ---
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('appointmentDate').min = today;
         };
