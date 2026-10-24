@@ -35,6 +35,22 @@ app.post('/api/appointments', async (req, res) => {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  // --- PREVENT PAST BOOKINGS (BACKEND) ---
+  // Get current time in IST (UTC + 5:30)
+  const now = new Date();
+  const nowIST = new Date(now.getTime() + (330 * 60 * 1000)); 
+  
+  const currentDate = nowIST.toISOString().split('T')[0];
+  const currentTime = nowIST.toISOString().split('T')[1].slice(0, 5);
+
+  if (date < currentDate) {
+    return res.status(400).json({ error: 'Cannot book appointments for past dates.' });
+  }
+  if (date === currentDate && time < currentTime) {
+    return res.status(400).json({ error: 'Cannot book appointments for past times.' });
+  }
+  // ---------------------------------------
+
   if (time < '09:00' || endTime > '22:00') {
     return res.status(400).json({ error: 'Bookings are only available between 9:00 AM and 10:00 PM.' });
   }
@@ -77,7 +93,6 @@ app.delete('/api/admin/appointments', async (req, res) => {
   }
 });
 
-// Explicit routes for HTML files to prevent 404s
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
 app.get('/terms', (req, res) => res.sendFile(path.join(__dirname, 'terms.html')));
