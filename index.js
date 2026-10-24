@@ -35,11 +35,14 @@ app.post('/api/appointments', async (req, res) => {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  // Server-side time validation (7 AM to 10 PM)
+  if (time < '07:00' || endTime > '22:00') {
+    return res.status(400).json({ error: 'Bookings are only available between 7:00 AM and 10:00 PM.' });
+  }
+
   // --- PREVENT PAST BOOKINGS (BACKEND) ---
-  // Get current time in IST (UTC + 5:30)
   const now = new Date();
   const nowIST = new Date(now.getTime() + (330 * 60 * 1000)); 
-  
   const currentDate = nowIST.toISOString().split('T')[0];
   const currentTime = nowIST.toISOString().split('T')[1].slice(0, 5);
 
@@ -48,11 +51,6 @@ app.post('/api/appointments', async (req, res) => {
   }
   if (date === currentDate && time < currentTime) {
     return res.status(400).json({ error: 'Cannot book appointments for past times.' });
-  }
-  // ---------------------------------------
-
-  if (time < '09:00' || endTime > '22:00') {
-    return res.status(400).json({ error: 'Bookings are only available between 9:00 AM and 10:00 PM.' });
   }
 
   const appointment = {
