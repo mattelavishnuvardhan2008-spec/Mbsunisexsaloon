@@ -7,50 +7,29 @@
   <link rel="icon" type="image/png" href="logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #F9F6F0;
-      --surface: #FFFFFF;
-      --text: #3F3423;
-      --accent: #CDAA4F;
-      --accent-dark: #A2843D;
-      --border: rgba(184, 151, 84, 0.3);
-    }
+    :root { --bg: #F9F6F0; --surface: #FFFFFF; --text: #3F3423; --accent: #CDAA4F; --accent-dark: #A2843D; --border: rgba(184, 151, 84, 0.3); }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; }
     
-    header { background: var(--surface); padding: 20px 30px; border-bottom: 2px solid var(--accent); display: flex; flex-direction: column; gap: 16px; align-items: flex-start; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+    header { background: var(--surface); padding: 20px 30px; border-bottom: 2px solid var(--accent); display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
     @media (min-width: 768px) { header { flex-direction: row; justify-content: space-between; align-items: center; } }
-    
     header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 4px; color: var(--accent-dark); margin: 0; }
     
-    .admin-key-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; width: 100%; }
+    .admin-key-row { display: flex; gap: 12px; width: 100%; }
     @media (min-width: 768px) { .admin-key-row { width: auto; } }
+    .admin-key-row input { padding: 10px 14px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text); flex: 1; font-family: inherit; }
+    .admin-key-row button { padding: 10px 20px; border: none; background: var(--accent-dark); color: white; font-weight: bold; border-radius: 4px; cursor: pointer; }
     
-    .admin-key-row input { padding: 10px 14px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text); flex: 1; min-width: 200px; font-family: inherit; }
-    .admin-key-row input:focus { outline: none; border-color: var(--accent); }
-    .admin-key-row button { padding: 10px 20px; border: none; background: var(--accent-dark); color: white; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s; }
-    .admin-key-row button:hover { background: var(--accent); }
+    main { padding: 30px; max-width: 1400px; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; }
     
-    main { padding: 30px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; flex: 1; }
-    
-    .actions-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
-    .action-btn { padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white; font-size: 14px; transition: 0.2s; }
+    .actions-bar { display: flex; gap: 12px; margin-bottom: 20px; }
+    .action-btn { padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white; font-size: 14px; }
     .btn-download { background: #6b8e23; }
-    .btn-download:hover { background: #557218; }
     .btn-delete { background: #b23b3b; }
-    .btn-delete:hover { background: #8c2a2a; }
     
-    .table-container {
-        min-height: 300px;
-        width: 100%;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        overflow-x: auto;
-    }
-
+    .table-container { min-height: 300px; width: 100%; background: var(--surface); border: 1px solid var(--border); overflow-x: auto; }
     .appointments-table { width: 100%; border-collapse: collapse; }
     .appointments-table th, .appointments-table td { padding: 16px; border-bottom: 1px solid var(--border); text-align: left; font-size: 14px; white-space: nowrap; }
     .appointments-table th { background: var(--bg); color: var(--accent-dark); font-weight: 700; }
-    
     .alert { margin-bottom: 20px; padding: 16px; background: var(--surface); border: 1px solid var(--accent); color: var(--text); font-weight: 600; }
   </style>
 </head>
@@ -64,7 +43,6 @@
   </header>
   <main>
     <div class="alert" id="adminAlert">Enter admin key to load appointment details.</div>
-    
     <div class="actions-bar">
       <button class="action-btn btn-download" onclick="downloadCSV()">Download Excel (CSV)</button>
       <button class="action-btn btn-delete" onclick="deleteAppointments()">Delete All</button>
@@ -79,8 +57,10 @@
               <th>Phone</th>
               <th>Service</th>
               <th>Date</th>
-              <th>Time</th>
-              <th>Notes</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Duration</th>
+              <th>Total Due</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -102,9 +82,7 @@
       alertBox.textContent = 'Loading...';
 
       try {
-        const response = await fetch('/api/admin/appointments', {
-          headers: { authorization: `Bearer ${key}` }
-        });
+        const response = await fetch('/api/admin/appointments', { headers: { authorization: `Bearer ${key}` } });
         const data = await response.json();
         if (!response.ok) throw new Error(data.error);
 
@@ -119,24 +97,24 @@
             <td><strong>Chair ${app.chair || '?'}</strong></td>
             <td>${app.name}</td>
             <td>${app.phone}</td>
-            <td>${app.service}</td>
+            <td style="max-width: 200px; white-space: normal;">${app.service}</td>
             <td>${app.date}</td>
             <td>${app.time}</td>
-            <td>${app.notes || '—'}</td>
+            <td>${app.endTime || '—'}</td>
+            <td>${app.totalDuration ? app.totalDuration + ' mins' : '—'}</td>
+            <td><strong>₹${app.totalPrice || 0}</strong></td>
           `;
           tbody.appendChild(row);
         });
-      } catch (error) {
-        alertBox.textContent = `Error: ${error.message}`;
-      }
+      } catch (error) { alertBox.textContent = `Error: ${error.message}`; }
     }
 
     function downloadCSV() {
         if (!currentAppointments.length) return alert("No appointments to download.");
-        const headers = ['Chair', 'Name', 'Phone', 'Service', 'Date', 'Time', 'Notes'];
+        const headers = ['Chair', 'Name', 'Phone', 'Service', 'Date', 'Start Time', 'End Time', 'Duration', 'Total Due'];
         const rows = currentAppointments.map(app => [
-            app.chair || '?', app.name, app.phone, app.service, app.date, app.time, app.notes || ''
-        ].map(val => `"${val.toString().replace(/"/g, '""')}"`).join(','));
+            app.chair || '?', app.name, app.phone, app.service, app.date, app.time, app.endTime, app.totalDuration, app.totalPrice
+        ].map(val => `"${val}"`).join(','));
         
         const blob = new Blob([headers.join(',') + '\n' + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement("a");
@@ -149,11 +127,8 @@
         const key = document.getElementById('adminKey').value.trim();
         if (!key) return alert("Enter admin key first.");
         if (!confirm("Delete ALL appointments? This cannot be undone.")) return;
-
         try {
-            const response = await fetch('/api/admin/appointments', {
-                method: 'DELETE', headers: { authorization: `Bearer ${key}` }
-            });
+            const response = await fetch('/api/admin/appointments', { method: 'DELETE', headers: { authorization: `Bearer ${key}` } });
             if (!response.ok) throw new Error('Failed to delete');
             document.querySelector('#appointmentsTable tbody').innerHTML = '';
             document.getElementById('adminAlert').textContent = 'All appointments cleared.';
