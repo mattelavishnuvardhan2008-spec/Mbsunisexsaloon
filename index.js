@@ -13,11 +13,7 @@ const callD1Worker = async (method, body = null) => {
   
   if (!workerUrl || !proxySecret) throw new Error('Missing ENV vars');
 
-  const options = {
-    method,
-    headers: { 'Authorization': `Bearer ${proxySecret}`, 'Content-Type': 'application/json' }
-  };
-  
+  const options = { method, headers: { 'Authorization': `Bearer ${proxySecret}`, 'Content-Type': 'application/json' } };
   if (body) options.body = JSON.stringify(body);
   
   const response = await fetch(workerUrl, options);
@@ -33,23 +29,18 @@ const callD1Worker = async (method, body = null) => {
 };
 
 app.post('/api/appointments', async (req, res) => {
-  const { name, phone, service, date, time, notes } = req.body;
+  const { name, phone, service, date, time, endTime, notes, totalPrice, totalDuration } = req.body;
   
-  if (!name || !phone || !service || !date || !time) {
+  if (!name || !phone || !service || !date || !time || !endTime) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  if (name.length > 50) return res.status(400).json({ error: 'Name cannot exceed 50 characters' });
-  if (phone.length > 10) return res.status(400).json({ error: 'Phone cannot exceed 10 characters' });
-  if (notes && notes.length > 100) return res.status(400).json({ error: 'Notes cannot exceed 100 characters' });
-
-  // Server-side time validation
-  if (time < '09:00' || time > '22:00') {
+  if (time < '09:00' || endTime > '22:00') {
     return res.status(400).json({ error: 'Bookings are only available between 9:00 AM and 10:00 PM.' });
   }
 
   const appointment = {
-    id: nanoid(), name, phone, service, date, time, notes: notes || '', createdAt: new Date().toISOString()
+    id: nanoid(), name, phone, service, date, time, endTime, notes: notes || '', totalPrice, totalDuration, createdAt: new Date().toISOString()
   };
 
   try {
@@ -86,7 +77,10 @@ app.delete('/api/admin/appointments', async (req, res) => {
   }
 });
 
+// Explicit routes for HTML files to prevent 404s
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
+app.get('/terms', (req, res) => res.sendFile(path.join(__dirname, 'terms.html')));
+app.get('/privacy', (req, res) => res.sendFile(path.join(__dirname, 'privacy.html')));
 
 module.exports = app;
