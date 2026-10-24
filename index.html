@@ -6,8 +6,8 @@
     <title>MBS - Premium Grooming</title>
     <link rel="icon" type="image/png" href="logo.png">
     
-    <!-- Load Poppins for the logo, and Bebas Neue / DM Sans for the rest -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&family=Poppins:wght@800&display=swap" rel="stylesheet">
+    <!-- Added Poppins 900 for the logo style -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&family=Poppins:wght@800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -32,14 +32,13 @@
             background: var(--surface); border-bottom: 2px solid var(--accent); z-index: 1000;
         }
         
-        /* CHANGED: Font for the MBS Logo */
+        /* UPDATED: Thick font for the MBS Logo */
         .logo { 
             font-family: 'Poppins', sans-serif;
-            font-weight: 800;
+            font-weight: 900;
             font-size: 32px;
             color: var(--accent-dark);
-            letter-spacing: -1.5px; /* Tightens the letters to look like a logo */
-            text-transform: lowercase;
+            letter-spacing: -2px; /* Brings letters close together */
         }
         
         .nav-links a { color: var(--text); text-decoration: none; font-weight: 700; border: 1px solid var(--accent); padding: 8px 16px; border-radius: 4px; font-size: 14px; transition: 0.3s; }
@@ -51,15 +50,14 @@
             text-align: center; background: radial-gradient(circle at top center, #FEF6E4 0%, #E9D5A2 40%, #D3BE90 100%); padding: 100px 20px 40px;
         }
         
-        /* CHANGED: Font for the MBS Hero Text */
+        /* UPDATED: Thick font for the MBS Hero Text */
         .hero h1 { 
             font-family: 'Poppins', sans-serif;
-            font-weight: 800;
+            font-weight: 900;
             font-size: clamp(80px, 15vw, 140px); 
             line-height: 0.9; 
             color: var(--accent-dark); 
-            letter-spacing: -3px; /* Tightens letters */
-            text-transform: lowercase;
+            letter-spacing: -5px; /* Tightens letters for that logo look */
             margin-bottom: 10px; 
         }
         
@@ -127,11 +125,10 @@
         
         .footer-logo { 
             font-family: 'Poppins', sans-serif; 
-            font-weight: 800; 
+            font-weight: 900; 
             font-size: 40px; 
             color: var(--accent-dark); 
-            letter-spacing: -1.5px; 
-            text-transform: lowercase;
+            letter-spacing: -2px; 
             margin-bottom: 10px;
         }
         
@@ -149,12 +146,13 @@
 </head>
 <body>
     <nav>
-        <div class="logo">mbs</div>
+        <!-- Changed to MBS (Uppercase) -->
+        <div class="logo">MBS</div>
         <div class="nav-links"><a href="admin.html">Owner Admin</a></div>
     </nav>
 
     <section class="hero">
-        <h1>mbs</h1>
+        <h1>MBS</h1>
         <p class="tagline">Groom Your Personality</p>
         <p>Precision haircuts, expert beard care, and luxury spa treatments in a calm, well-run studio.</p>
         <button class="btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">View Services ↓</button>
@@ -249,10 +247,8 @@
                         <input type="date" id="appointmentDate">
                     </div>
                     <div class="form-group">
-                        <!-- CHANGED: Text label to 7 AM -->
                         <label>Start Time (7 AM - 10 PM)</label>
                         <div class="time-row">
-                            <!-- CHANGED: min="07:00" -->
                             <input type="time" id="appointmentTime" min="07:00" max="22:00">
                             <select id="timeAmPm">
                                 <option value="AM">AM</option>
@@ -273,7 +269,7 @@
     </section>
 
     <footer>
-        <div class="footer-logo">mbs</div>
+        <div class="footer-logo">MBS</div>
         <p style="font-size: 12px; letter-spacing: 4px; margin-bottom: 20px;">GROOM YOUR PERSONALITY</p>
         <p style="font-size: 14px; color: var(--muted);">Near TKR Busstop, Meerpet, LB Nagar, Hyderabad</p>
         <p style="font-size: 12px; margin-top: 20px; opacity: 0.5;">© 2026 MBS. All rights reserved to mbsunisexsalon.</p>
@@ -448,7 +444,6 @@
             startDate.setMinutes(startDate.getMinutes() + totalDuration);
             const formattedEndTime = startDate.toTimeString().slice(0, 5);
 
-            // CHANGED: Check for 07:00 instead of 09:00
             if (formattedStartTime < '07:00' || formattedEndTime > '22:00') {
                 return alert('The total duration of your services exceeds our operating hours (7 AM - 10 PM). Please pick an earlier time or fewer services.');
             }
