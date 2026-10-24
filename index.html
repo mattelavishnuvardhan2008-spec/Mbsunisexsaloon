@@ -40,16 +40,36 @@
         .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 15vw, 140px); line-height: 0.9; color: var(--accent-dark); letter-spacing: 8px; margin-bottom: 10px; }
         .hero .tagline { font-size: clamp(16px, 3vw, 20px); letter-spacing: 6px; text-transform: uppercase; color: var(--text); margin-bottom: 30px; font-weight: 400; }
         .hero p { max-width: 500px; margin: 0 auto 40px; font-size: 16px; line-height: 1.6; }
-        .btn-primary { padding: 16px 32px; background: var(--accent-dark); color: white; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .btn-primary { padding: 16px 32px; background: var(--accent-dark); color: white; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; transition: 0.2s; }
         .btn-primary:hover { background: var(--accent); }
 
+        /* --- NEW SECTIONS (WHY MBS & HOW IT WORKS) --- */
+        .content-section { padding: 80px 20px; }
+        
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-subtitle { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 10px; font-weight: 700; }
+        .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 5vw, 48px); color: var(--text); letter-spacing: 2px; }
+
+        /* WHY MBS */
+        .why-mbs { background: var(--beige); }
+        .why-grid { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 1000px; margin: 0 auto; }
+        @media (min-width: 768px) { .why-grid { grid-template-columns: repeat(3, 1fr); } }
+        .why-item h3 { font-size: 20px; margin-bottom: 10px; color: var(--text); }
+        .why-item p { color: var(--text); line-height: 1.6; font-size: 15px; opacity: 0.8; }
+
+        /* HOW IT WORKS */
+        .how-it-works { background: var(--bg); }
+        .steps-grid { display: grid; grid-template-columns: 1fr; gap: 40px; max-width: 1000px; margin: 0 auto; }
+        @media (min-width: 768px) { .steps-grid { grid-template-columns: repeat(3, 1fr); } }
+        .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 60px; color: var(--accent-dark); line-height: 1; margin-bottom: 10px; }
+        .step-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+        .step-desc { font-size: 15px; color: var(--text); opacity: 0.8; line-height: 1.6; }
+
         /* SERVICES SECTION */
-        .services-section { padding: 60px 20px; background: var(--bg); max-width: 900px; margin: 0 auto; }
-        .section-header { text-align: center; margin-bottom: 30px; }
-        .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--text); letter-spacing: 2px; }
+        .services-section { padding: 80px 20px; background: var(--beige); max-width: 900px; margin: 0 auto; }
         
         /* FILTER TABS */
-        .filter-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
         .filter-btn {
             padding: 10px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
             font-weight: 700; color: var(--text); cursor: pointer; transition: 0.2s;
@@ -71,7 +91,7 @@
         .service-time { font-size: 12px; color: var(--muted); }
 
         /* BOOKING SECTION */
-        .booking-section { padding: 60px 20px; background: var(--beige); display: flex; justify-content: center; }
+        .booking-section { padding: 60px 20px; background: var(--bg); display: flex; justify-content: center; }
         .appointment-panel { background: var(--surface); border: 2px solid var(--accent); padding: 40px; width: 100%; max-width: 700px; border-radius: 12px; }
         
         .appointment-form { display: flex; flex-direction: column; gap: 20px; }
@@ -120,9 +140,57 @@
         <h1>MBS</h1>
         <p class="tagline">Groom Your Personality</p>
         <p>Precision haircuts, expert beard care, and luxury spa treatments in a calm, well-run studio.</p>
-        <button class="btn-primary" onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})">Book Now ↓</button>
+        <button class="btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">View Services ↓</button>
     </section>
 
+    <!-- 1. WHY MBS SECTION -->
+    <section class="content-section why-mbs">
+        <div class="section-header">
+            <div class="section-subtitle">Why MBS</div>
+            <h2 class="section-title">Grooming, Done Properly</h2>
+        </div>
+        <div class="why-grid">
+            <div class="why-item">
+                <h3>Considered craft</h3>
+                <p>Every service starts with a conversation about your hair, your routine and the result you want.</p>
+            </div>
+            <div class="why-item">
+                <h3>A clean, calm studio</h3>
+                <p>Sanitised tools and a tidy, unhurried space, so every visit feels the way it should.</p>
+            </div>
+            <div class="why-item">
+                <h3>Respect for your time</h3>
+                <p>Choose a slot that suits you and arrive to a chair that is ready for you.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. HOW IT WORKS SECTION -->
+    <section class="content-section how-it-works">
+        <div class="section-header">
+            <div class="section-subtitle">How it works</div>
+            <h2 class="section-title">Book in Three Steps</h2>
+        </div>
+        <div class="steps-grid">
+            <div>
+                <div class="step-num">01</div>
+                <div class="step-title">Choose a service</div>
+                <p class="step-desc">Pick what you need from our menu of services.</p>
+            </div>
+            <div>
+                <div class="step-num">02</div>
+                <div class="step-title">Pick a time</div>
+                <p class="step-desc">Select the date and slot that fit your day.</p>
+            </div>
+            <div>
+                <div class="step-num">03</div>
+                <div class="step-title">Walk in and relax</div>
+                <p class="step-desc">We will have everything ready when you arrive.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SERVICES SECTION -->
     <section class="services-section" id="services">
         <div class="section-header">
             <h2 class="section-title">Our Services</h2>
@@ -140,6 +208,7 @@
         <div id="serviceListContainer"></div>
     </section>
 
+    <!-- 4. BOOKING SECTION -->
     <section class="booking-section" id="booking">
         <div class="appointment-panel">
             <h2 class="section-title" style="text-align: center; margin-bottom: 20px;">Book Appointment</h2>
@@ -210,7 +279,7 @@
     </div>
 
     <script>
-        // --- DATA SOURCE FROM SCREENSHOTS ---
+        // --- DATA SOURCE ---
         const catalog = [
             // MENS
             { gender: 'men', category: 'Men Hair Styling', name: 'Hair Cut - Men', time: 20, price: 149 },
@@ -262,7 +331,6 @@
             
             const filtered = catalog.filter(s => filter === 'all' || s.gender === filter || s.gender === 'all');
             
-            // Group by category
             const grouped = filtered.reduce((acc, obj) => {
                 if (!acc[obj.category]) acc[obj.category] = [];
                 acc[obj.category].push(obj);
@@ -370,7 +438,6 @@
                 return alert('Please fill all required fields and select at least one service.');
             }
 
-            // Extract selected services
             let totalPrice = 0;
             let totalDuration = 0;
             let serviceNames = [];
