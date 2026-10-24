@@ -1,4 +1,3 @@
-# Mysecondrepository2026
 # BarberX Booking Website
 
 A simple barber shop website with service imagery, appointment booking, and an owner-only admin panel.
