@@ -8,421 +8,141 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #F9F6F0; /* Light Cream */
-            --surface: #FFFFFF; /* White */
-            --beige: #E2D3B3; /* Beige for sections */
-            --text: #3F3423; /* Dark Brown */
+            --bg: #F9F6F0;
+            --surface: #FFFFFF;
+            --beige: #E2D3B3;
+            --text: #3F3423;
             --muted: #7E6A52;
-            --accent: #CDAA4F; /* Gold */
+            --accent: #CDAA4F;
             --accent-dark: #A2843D;
             --border: rgba(184, 151, 84, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-        }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
         /* NAVIGATION */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 16px 32px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--surface);
-            border-bottom: 2px solid var(--accent);
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            position: fixed; top: 0; width: 100%; padding: 16px 32px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--surface); border-bottom: 2px solid var(--accent); z-index: 1000;
         }
-
-        .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 32px;
-            color: var(--accent-dark);
-            letter-spacing: 4px;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 700;
-            border: 1px solid var(--accent);
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
+        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--accent-dark); letter-spacing: 4px; }
+        .nav-links a { color: var(--text); text-decoration: none; font-weight: 700; border: 1px solid var(--accent); padding: 8px 16px; border-radius: 4px; font-size: 14px; transition: 0.3s; }
         .nav-links a:hover { background: var(--accent); color: white; }
 
-        /* HERO SECTION */
+        /* HERO */
         .hero {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at top center, #FEF6E4 0%, #E9D5A2 40%, #D3BE90 100%);
-            padding: 100px 20px 20px;
+            width: 100%; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; background: radial-gradient(circle at top center, #FEF6E4 0%, #E9D5A2 40%, #D3BE90 100%); padding: 100px 20px 40px;
         }
-
-        .hero-eyebrow {
-            font-size: 14px;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            color: var(--text);
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(80px, 15vw, 140px);
-            line-height: 0.9;
-            color: var(--accent-dark);
-            letter-spacing: 8px;
-            margin-bottom: 10px;
-        }
-
-        .hero .tagline {
-            font-size: clamp(16px, 3vw, 20px);
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            color: var(--text);
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-
-        .hero p {
-            max-width: 500px;
-            margin: 0 auto 40px;
-            font-size: 16px;
-            line-height: 1.6;
-            color: var(--text);
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            padding: 16px 32px;
-            background: var(--accent-dark);
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            letter-spacing: 1px;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-
+        .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 15vw, 140px); line-height: 0.9; color: var(--accent-dark); letter-spacing: 8px; margin-bottom: 10px; }
+        .hero .tagline { font-size: clamp(16px, 3vw, 20px); letter-spacing: 6px; text-transform: uppercase; color: var(--text); margin-bottom: 30px; font-weight: 400; }
+        .hero p { max-width: 500px; margin: 0 auto 40px; font-size: 16px; line-height: 1.6; }
+        .btn-primary { padding: 16px 32px; background: var(--accent-dark); color: white; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
         .btn-primary:hover { background: var(--accent); }
 
-        .btn-secondary {
-            padding: 16px 32px;
-            background: transparent;
-            color: var(--text);
-            font-weight: bold;
-            border: 1px solid var(--text);
-            border-radius: 4px;
-            cursor: pointer;
-            letter-spacing: 1px;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-
-        .btn-secondary:hover { background: var(--text); color: white; }
-
-        /* SECTIONS GLOBAL */
-        section { padding: 80px 20px; }
-        .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(36px, 5vw, 50px);
-            color: var(--text);
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-        }
-        .section-subtitle {
-            font-size: 12px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--accent-dark);
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        .section-desc {
-            max-width: 600px;
-            font-size: 16px;
-            line-height: 1.6;
-            color: var(--muted);
-            margin-bottom: 40px;
-        }
-
-        /* WHY MBS */
-        .why-mbs {
-            background: var(--beige);
-        }
-        .why-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        @media (min-width: 768px) { .why-grid { grid-template-columns: repeat(3, 1fr); } }
+        /* SERVICES SECTION */
+        .services-section { padding: 60px 20px; background: var(--bg); max-width: 900px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 30px; }
+        .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--text); letter-spacing: 2px; }
         
-        .why-item h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: var(--text);
+        /* FILTER TABS */
+        .filter-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 10px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+            font-weight: 700; color: var(--text); cursor: pointer; transition: 0.2s;
         }
-        .why-item p {
-            color: var(--text);
-            line-height: 1.6;
-            font-size: 15px;
-            opacity: 0.8;
-        }
+        .filter-btn.active { background: var(--accent-dark); color: white; border-color: var(--accent-dark); }
 
-        /* SERVICES */
-        .services { background: var(--bg); }
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr; /* 1 col on mobile */
-            gap: 30px;
-            max-width: 800px; /* narrower for editorial look */
-            margin: 0 auto;
-        }
+        /* SERVICE LIST */
+        .category-group { margin-bottom: 30px; }
+        .category-title { font-size: 20px; font-weight: 700; margin-bottom: 15px; border-bottom: 2px solid var(--border); padding-bottom: 5px; color: var(--accent-dark); }
         
-        .service-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 30px;
-            position: relative;
+        .service-item {
+            display: flex; justify-content: space-between; align-items: center; background: var(--surface);
+            padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--border);
         }
-        .service-number {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 40px;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-        .service-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-        .service-desc {
-            font-size: 15px;
-            color: var(--muted);
-            line-height: 1.6;
-        }
+        .service-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .service-info p { font-size: 13px; color: var(--muted); }
+        .service-meta { text-align: right; }
+        .service-price { font-size: 16px; font-weight: 700; color: var(--accent-dark); }
+        .service-time { font-size: 12px; color: var(--muted); }
 
-        /* HOW IT WORKS */
-        .how-it-works { background: var(--beige); }
-        .steps-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        @media (min-width: 768px) { .steps-grid { grid-template-columns: repeat(3, 1fr); } }
+        /* BOOKING SECTION */
+        .booking-section { padding: 60px 20px; background: var(--beige); display: flex; justify-content: center; }
+        .appointment-panel { background: var(--surface); border: 2px solid var(--accent); padding: 40px; width: 100%; max-width: 700px; border-radius: 12px; }
         
-        .step-num {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 60px;
-            color: var(--accent-dark);
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-        .step-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .step-desc {
-            font-size: 15px;
-            color: var(--text);
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-
-        /* BOOKING FORM */
-        .booking { background: var(--bg); display: flex; justify-content: center; }
-        .appointment-panel {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 40px;
-            width: 100%;
-            max-width: 700px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
-        }
-
         .appointment-form { display: flex; flex-direction: column; gap: 20px; }
-        .form-row { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        @media (min-width: 500px) { .form-row { grid-template-columns: 1fr 1fr; } }
-
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+        
         .form-group { display: flex; flex-direction: column; gap: 8px; }
         .form-group label { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: var(--text); }
+        .form-group input, .form-group select { width: 100%; padding: 14px; border: 1px solid var(--border); font-family: inherit; font-size: 15px; background: var(--bg); color: var(--text); border-radius: 4px; }
 
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%; padding: 14px; border: 1px solid var(--border); font-family: inherit; font-size: 15px; background: var(--bg); color: var(--text); border-radius: 4px;
-        }
-        
-        .form-group textarea { resize: none; }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent-dark); }
+        /* CATEGORY-WISE CHECKBOXES */
+        .service-selection-container { border: 1px solid var(--border); padding: 15px; border-radius: 4px; background: var(--bg); max-height: 250px; overflow-y: auto; }
+        .selection-category { margin-bottom: 15px; }
+        .selection-category h5 { font-size: 14px; color: var(--accent-dark); margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+        .checkbox-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 14px; cursor: pointer; }
+        .checkbox-row input { accent-color: var(--accent-dark); width: 16px; height: 16px; cursor: pointer; }
 
-        .service-options { display: grid; grid-template-columns: 1fr; gap: 10px; }
-        @media (min-width: 400px) { .service-options { grid-template-columns: 1fr 1fr; } }
-        
-        .service-option {
-            display: flex; align-items: center; gap: 10px; padding: 12px;
-            border: 1px solid var(--border); cursor: pointer; font-size: 14px; background: var(--bg); border-radius: 4px;
-        }
-        .service-option input { accent-color: var(--accent-dark); width: 16px; height: 16px; }
+        .total-summary { background: var(--beige); padding: 15px; border-radius: 4px; font-weight: 700; text-align: right; font-size: 18px; margin-top: 10px; border: 1px solid var(--accent); }
 
         .time-row { display: grid; grid-template-columns: 1fr 90px; gap: 10px; }
-
-        .book-btn {
-            padding: 18px; border: none; background: var(--accent-dark); color: white;
-            font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; border-radius: 4px;
-        }
+        .book-btn { padding: 18px; border: none; background: var(--accent-dark); color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; border-radius: 4px; width: 100%; margin-top: 10px; }
         .book-btn:hover { background: var(--accent); }
 
-        .legal-links {
-            display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);
-        }
+        /* FOOTER & MODAL & LEGAL */
+        footer { background: var(--surface); color: var(--text); padding: 40px 20px; text-align: center; border-top: 2px solid var(--accent); }
+        .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--accent-dark); letter-spacing: 4px; }
+        
+        .legal-links { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
         .legal-links a { color: var(--muted); font-size: 13px; text-decoration: none; font-weight: 600; }
         .legal-links a:hover { color: var(--accent-dark); }
 
-        /* FOOTER */
-        footer {
-            background: var(--beige); color: var(--text); padding: 60px 20px 30px; text-align: center;
-        }
-        .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--accent-dark); letter-spacing: 4px; margin-bottom: 10px; }
-        .footer-tagline { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 40px; font-weight: 700; }
-        .footer-address { font-size: 15px; line-height: 1.8; margin-bottom: 40px; opacity: 0.8; }
-        .footer-copy { font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); padding-top: 20px; }
-
-        /* MODAL */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(63, 52, 35, 0.6);
-            backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 2000;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(63, 52, 35, 0.7); display: none; justify-content: center; align-items: center; z-index: 2000; }
         .modal-overlay.active { display: flex; }
-        .modal-content { background: var(--surface); padding: 40px; text-align: center; max-width: 400px; width: 90%; border-top: 4px solid var(--accent-dark); }
-        .modal-content h3 { color: var(--accent-dark); font-family: 'Bebas Neue', sans-serif; font-size: 32px; margin-bottom: 15px; letter-spacing: 2px; }
-        .modal-content p { color: var(--text); line-height: 1.6; margin-bottom: 20px; }
-        .modal-close-btn { padding: 12px 30px; background: var(--text); color: white; border: none; cursor: pointer; font-weight: bold; font-size: 14px; }
+        .modal-content { background: var(--surface); padding: 40px; text-align: center; max-width: 450px; width: 90%; border-top: 5px solid var(--accent-dark); border-radius: 8px; }
+        .modal-content h3 { color: var(--accent-dark); font-family: 'Bebas Neue', sans-serif; font-size: 32px; margin-bottom: 15px; }
+        .modal-close-btn { padding: 12px 30px; background: var(--text); color: white; border: none; cursor: pointer; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
     <nav>
         <div class="logo">MBS</div>
-        <div class="nav-links">
-            <a href="admin.html">Owner Admin</a>
-        </div>
+        <div class="nav-links"><a href="admin.html">Owner Admin</a></div>
     </nav>
 
     <section class="hero">
-        <div class="hero-eyebrow">Salon & Grooming Studio</div>
         <h1>MBS</h1>
         <p class="tagline">Groom Your Personality</p>
-        <p>Precision haircuts, beard care and skin treatments in a calm, well-run studio. Reserve your chair online.</p>
-        <div class="hero-btns">
-            <button class="btn-primary" onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})">Book Now ↓</button>
-            <button class="btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">Our Services</button>
-        </div>
+        <p>Precision haircuts, expert beard care, and luxury spa treatments in a calm, well-run studio.</p>
+        <button class="btn-primary" onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'})">Book Now ↓</button>
     </section>
 
-    <section class="why-mbs">
-        <div class="section-subtitle">Why MBS</div>
-        <h2 class="section-title">Grooming, Done Properly</h2>
-        <div class="why-grid">
-            <div class="why-item">
-                <h3>Considered craft</h3>
-                <p>Every service starts with a conversation about your hair, your routine and the result you want.</p>
-            </div>
-            <div class="why-item">
-                <h3>A clean, calm studio</h3>
-                <p>Sanitised tools and a tidy, unhurried space, so every visit feels the way it should.</p>
-            </div>
-            <div class="why-item">
-                <h3>Respect for your time</h3>
-                <p>Choose a slot that suits you and arrive to a chair that is ready for you.</p>
-            </div>
+    <section class="services-section" id="services">
+        <div class="section-header">
+            <h2 class="section-title">Our Services</h2>
+            <p style="color: var(--muted);">Crafted to suit your style and schedule.</p>
         </div>
-    </section>
-
-    <section class="services" id="services">
-        <div class="section-subtitle">Services</div>
-        <h2 class="section-title">Crafted to Suit You</h2>
-        <p class="section-desc">A focused menu of services, each one carried out with care and finished to your taste.</p>
         
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-number">01</div>
-                <div class="service-title">Haircut & Styling</div>
-                <p class="service-desc">Cuts shaped around your face, hair type and routine, finished and styled before you leave.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-number">02</div>
-                <div class="service-title">Beard & Shave</div>
-                <p class="service-desc">Clean lines, hot-towel shaves and beard shaping for a sharp, comfortable finish.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-number">03</div>
-                <div class="service-title">Massage</div>
-                <p class="service-desc">Relax the neck and shoulders with a restorative massage built for grooming recovery.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-number">04</div>
-                <div class="service-title">Spa Treatment</div>
-                <p class="service-desc">Hot towel rituals, facial care, and premium spa touches for a luxury grooming reset.</p>
-            </div>
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <button class="filter-btn active" onclick="filterServices('all', this)">All Services</button>
+            <button class="filter-btn" onclick="filterServices('men', this)">For Men</button>
+            <button class="filter-btn" onclick="filterServices('women', this)">For Women</button>
         </div>
+
+        <!-- Dynamic Service List -->
+        <div id="serviceListContainer"></div>
     </section>
 
-    <section class="how-it-works">
-        <div class="section-subtitle">How it works</div>
-        <h2 class="section-title">Book in Three Steps</h2>
-        
-        <div class="steps-grid">
-            <div>
-                <div class="step-num">01</div>
-                <div class="step-title">Choose a service</div>
-                <p class="step-desc">Pick what you need from our menu of services.</p>
-            </div>
-            <div>
-                <div class="step-num">02</div>
-                <div class="step-title">Pick a time</div>
-                <p class="step-desc">Select the date and slot that fit your day.</p>
-            </div>
-            <div>
-                <div class="step-num">03</div>
-                <div class="step-title">Walk in and relax</div>
-                <p class="step-desc">We will have everything ready when you arrive.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="booking" id="booking">
+    <section class="booking-section" id="booking">
         <div class="appointment-panel">
-            <div class="section-subtitle">Reservations</div>
-            <h2 class="section-title">Book Your Appointment</h2>
-            <p class="section-desc">Tell us what you need and when you would like to come in. We will confirm your slot shortly.</p>
+            <h2 class="section-title" style="text-align: center; margin-bottom: 20px;">Book Appointment</h2>
             
             <div class="appointment-form">
                 <div class="form-row">
@@ -432,17 +152,18 @@
                     </div>
                     <div class="form-group">
                         <label>Phone Number</label>
-                        <input type="tel" id="customerPhone" placeholder="Your phone number" maxlength="10">
+                        <input type="tel" id="customerPhone" placeholder="10-digit number" maxlength="10">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Services</label>
-                    <div class="service-options">
-                        <label class="service-option"><input type="checkbox" name="service" value="Haircut"><span>Haircut & Styling</span></label>
-                        <label class="service-option"><input type="checkbox" name="service" value="Beard Trimming"><span>Beard & Shave</span></label>
-                        <label class="service-option"><input type="checkbox" name="service" value="Massage"><span>Massage</span></label>
-                        <label class="service-option"><input type="checkbox" name="service" value="Spa Treatment"><span>Spa Treatment</span></label>
+                    <label>Select Services (Category-wise)</label>
+                    <div class="service-selection-container" id="bookingServiceList">
+                        <!-- Populated via JS -->
+                    </div>
+                    <div class="total-summary">
+                        Total Due: ₹<span id="totalPriceDisplay">0</span> 
+                        <br><span style="font-size: 12px; color: var(--muted); font-weight: normal;">Estimated Time: <span id="totalDurationDisplay">0</span> mins</span>
                     </div>
                 </div>
 
@@ -452,7 +173,7 @@
                         <input type="date" id="appointmentDate">
                     </div>
                     <div class="form-group">
-                        <label>Time (9 AM - 10 PM)</label>
+                        <label>Start Time (9 AM - 10 PM)</label>
                         <div class="time-row">
                             <input type="time" id="appointmentTime" min="09:00" max="22:00">
                             <select id="timeAmPm">
@@ -463,12 +184,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Additional Notes (Optional)</label>
-                    <textarea id="notes" rows="2" maxlength="100" placeholder="Preferred style..."></textarea>
-                </div>
-
-                <button class="book-btn" onclick="bookAppointment()">Confirm Appointment</button>
+                <button class="book-btn" onclick="bookAppointment()">Confirm Booking</button>
                 
                 <div class="legal-links">
                     <a href="terms.html">Terms & Conditions</a>
@@ -480,53 +196,201 @@
 
     <footer>
         <div class="footer-logo">MBS</div>
-        <div class="footer-tagline">Groom Your Personality</div>
-        <div class="footer-address">
-            Near TKR Busstop, Meerpet<br>
-            LB Nagar, Hyderabad
-        </div>
-        <div class="footer-copy">
-            © 2026 MBS. All rights reserved to mbsunisexsalon.
-        </div>
+        <p style="font-size: 12px; letter-spacing: 4px; margin-bottom: 20px;">GROOM YOUR PERSONALITY</p>
+        <p style="font-size: 14px; color: var(--muted);">Near TKR Busstop, Meerpet, LB Nagar, Hyderabad</p>
+        <p style="font-size: 12px; margin-top: 20px; opacity: 0.5;">© 2026 MBS. All rights reserved to mbsunisexsalon.</p>
     </footer>
 
     <div class="modal-overlay" id="bookingModal">
         <div class="modal-content">
             <h3>Booking Confirmed!</h3>
-            <p id="modalMessage"></p>
+            <p id="modalMessage" style="line-height: 1.6;"></p>
             <button class="modal-close-btn" onclick="closeModal()">Close</button>
         </div>
     </div>
 
     <script>
+        // --- DATA SOURCE FROM SCREENSHOTS ---
+        const catalog = [
+            // MENS
+            { gender: 'men', category: 'Men Hair Styling', name: 'Hair Cut - Men', time: 20, price: 149 },
+            { gender: 'men', category: 'Men Hair Styling', name: 'Styling Haircut', time: 20, price: 199 },
+            { gender: 'men', category: 'Men Hair Styling', name: 'Kids Haircut', time: 20, price: 120 },
+            { gender: 'men', category: 'Men Hair Styling', name: 'Shaving/Trimming', time: 15, price: 70 },
+            { gender: 'men', category: 'Men Hair Styling', name: 'Hairwash', time: 10, price: 50 },
+            { gender: 'men', category: 'Men Hair Styling', name: 'Men Head Wash', time: 15, price: 50 },
+            { gender: 'men', category: 'Men Hair Styling', name: 'Hair Serum', time: 2, price: 140 },
+            { gender: 'men', category: 'Men Facial', name: 'Men Face Scrub', time: 30, price: 149 },
+            { gender: 'men', category: 'Men Facial', name: 'Men Face Scrub With Steam', time: 30, price: 299 },
+            { gender: 'men', category: 'Men Facial', name: 'Men Basic Facial', time: 60, price: 399 },
+            { gender: 'men', category: 'Men Facial', name: 'Men Classic Facial Vlcc', time: 60, price: 499 },
+            { gender: 'men', category: 'Men Facial', name: 'Men Whitening And Brightening', time: 60, price: 1299 },
+            { gender: 'men', category: 'Men Colours', name: 'Men Full High Lights', time: 60, price: 1999 },
+            { gender: 'men', category: 'Men Colours', name: 'Men Hair Colour Streax', time: 60, price: 399 },
+            { gender: 'men', category: 'Men Head Massage', name: 'Men Oil Massage', time: 30, price: 149 },
+            { gender: 'men', category: 'Men Mani Pedi', name: 'Men Basic Manicure', time: 40, price: 599 },
+            { gender: 'men', category: 'Offer', name: 'Mens Combo 1', time: 60, price: 299 },
+            { gender: 'men', category: 'Offer', name: 'Mens Combo 2', time: 60, price: 399 },
+            
+            // WOMENS
+            { gender: 'women', category: 'Women Hair Cuts', name: 'Women Cool Oil', time: 45, price: 349 },
+            { gender: 'women', category: 'Women Hair Cuts', name: 'Women Basic Haircut', time: 30, price: 399 },
+            { gender: 'women', category: 'Women Hair Cuts', name: 'Women Advance Haircut', time: 30, price: 799 },
+            { gender: 'women', category: 'Women Hair Cuts', name: 'Women Baby Hair Cut', time: 30, price: 399 },
+            { gender: 'women', category: 'Women Colour', name: 'Women Root Touch Up', time: 45, price: 999 },
+            { gender: 'women', category: 'Women Colour', name: 'Women Regular Colour', time: 45, price: 999 },
+            { gender: 'women', category: 'Women Treatments', name: 'Women Basic Hair Spa', time: 30, price: 799 },
+            { gender: 'women', category: 'Women Treatments', name: 'Women Matrix Hair Spa', time: 30, price: 999 },
+            { gender: 'women', category: 'Women Wax', name: 'Upper Lip Waxing', time: 30, price: 99 },
+            { gender: 'women', category: 'Women Wax', name: 'Full Face Waxing', time: 30, price: 499 },
+            { gender: 'women', category: 'Women Facial', name: 'Face Detan Basic', time: 20, price: 199 },
+            { gender: 'women', category: 'Women Facial', name: 'Fruit Clean Up', time: 30, price: 399 },
+            { gender: 'women', category: 'Women Head Massage', name: 'Women Basic Head Massage', time: 45, price: 299 },
+            
+            // BEAUTY
+            { gender: 'all', category: 'Beauty', name: 'Eye Brows Threading', time: 20, price: 49 },
+            { gender: 'all', category: 'Beauty', name: 'Upperlip Threading', time: 10, price: 19 },
+            { gender: 'all', category: 'Beauty', name: 'Basic Manicure', time: 30, price: 499 },
+            { gender: 'all', category: 'Beauty', name: 'Basic Pedicure', time: 45, price: 699 },
+            { gender: 'all', category: 'Piercing', name: 'Ear Piercing', time: 30, price: 300 }
+        ];
+
+        // --- RENDER SERVICES (UI) ---
+        function renderServices(filter = 'all') {
+            const container = document.getElementById('serviceListContainer');
+            container.innerHTML = '';
+            
+            const filtered = catalog.filter(s => filter === 'all' || s.gender === filter || s.gender === 'all');
+            
+            // Group by category
+            const grouped = filtered.reduce((acc, obj) => {
+                if (!acc[obj.category]) acc[obj.category] = [];
+                acc[obj.category].push(obj);
+                return acc;
+            }, {});
+
+            for (const [category, items] of Object.entries(grouped)) {
+                const catDiv = document.createElement('div');
+                catDiv.className = 'category-group';
+                catDiv.innerHTML = `<div class="category-title">${category}</div>`;
+                
+                items.forEach(item => {
+                    catDiv.innerHTML += `
+                        <div class="service-item">
+                            <div class="service-info">
+                                <h4>${item.name}</h4>
+                                <p>${item.category}</p>
+                            </div>
+                            <div class="service-meta">
+                                <div class="service-price">₹${item.price.toFixed(2)}</div>
+                                <div class="service-time">${item.time} mins</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.appendChild(catDiv);
+            }
+        }
+
+        function filterServices(gender, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderServices(gender);
+        }
+
+        // --- RENDER BOOKING CHECKBOXES ---
+        function renderBookingForm() {
+            const container = document.getElementById('bookingServiceList');
+            container.innerHTML = '';
+            
+            const grouped = catalog.reduce((acc, obj) => {
+                if (!acc[obj.category]) acc[obj.category] = [];
+                acc[obj.category].push(obj);
+                return acc;
+            }, {});
+
+            for (const [category, items] of Object.entries(grouped)) {
+                const catDiv = document.createElement('div');
+                catDiv.className = 'selection-category';
+                catDiv.innerHTML = `<h5>${category}</h5>`;
+                
+                items.forEach(item => {
+                    catDiv.innerHTML += `
+                        <label class="checkbox-row">
+                            <input type="checkbox" value='${JSON.stringify(item)}' onchange="calculateTotal(this)">
+                            <span>${item.name} - ₹${item.price}</span>
+                        </label>
+                    `;
+                });
+                container.appendChild(catDiv);
+            }
+        }
+
+        // --- CALCULATE TOTAL PRICE & DURATION ---
+        function calculateTotal() {
+            let totalPrice = 0;
+            let totalDuration = 0;
+            
+            document.querySelectorAll('#bookingServiceList input:checked').forEach(cb => {
+                const item = JSON.parse(cb.value);
+                totalPrice += item.price;
+                totalDuration += item.time;
+            });
+
+            document.getElementById('totalPriceDisplay').innerText = totalPrice;
+            document.getElementById('totalDurationDisplay').innerText = totalDuration;
+        }
+
+        // --- SUBMIT BOOKING ---
         async function bookAppointment() {
             const name = document.getElementById('customerName').value.trim();
             const phone = document.getElementById('customerPhone').value.trim();
             const date = document.getElementById('appointmentDate').value;
             let time = document.getElementById('appointmentTime').value;
             const ampm = document.getElementById('timeAmPm').value;
-            const notes = document.getElementById('notes').value.trim();
-            const selectedServices = Array.from(document.querySelectorAll('input[name="service"]:checked')).map(i => i.value);
-
-            if (!name || !phone || !date || !time || !selectedServices.length) {
+            const selectedCbs = document.querySelectorAll('#bookingServiceList input:checked');
+            
+            if (!name || !phone || !date || !time || selectedCbs.length === 0) {
                 return alert('Please fill all required fields and select at least one service.');
             }
 
+            // Extract selected services
+            let totalPrice = 0;
+            let totalDuration = 0;
+            let serviceNames = [];
+            
+            selectedCbs.forEach(cb => {
+                const item = JSON.parse(cb.value);
+                totalPrice += item.price;
+                totalDuration += item.time;
+                serviceNames.push(item.name);
+            });
+
+            // Time Formatting
             let [hours, minutes] = time.split(':');
             hours = parseInt(hours);
             if (ampm === 'PM' && hours < 12) hours += 12;
             if (ampm === 'AM' && hours === 12) hours = 0;
-            const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes}`;
+            const formattedStartTime = `${hours.toString().padStart(2, '0')}:${minutes}`;
 
-            if (formattedTime < '09:00' || formattedTime > '22:00') {
-                return alert('We are open from 9:00 AM to 10:00 PM. Please select a valid time.');
+            // Calculate End Time
+            let startDate = new Date(`2000-01-01T${formattedStartTime}`);
+            startDate.setMinutes(startDate.getMinutes() + totalDuration);
+            const formattedEndTime = startDate.toTimeString().slice(0, 5);
+
+            if (formattedStartTime < '09:00' || formattedEndTime > '22:00') {
+                return alert('The total duration of your services exceeds our operating hours (9 AM - 10 PM). Please pick an earlier time or fewer services.');
             }
 
             try {
                 const response = await fetch('/api/appointments', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, phone, service: selectedServices.join(', '), date, time: formattedTime, notes })
+                    body: JSON.stringify({ 
+                        name, phone, service: serviceNames.join(', '), 
+                        date, time: formattedStartTime, endTime: formattedEndTime, 
+                        notes: '', totalPrice, totalDuration 
+                    })
                 });
 
                 const data = await response.json();
@@ -535,16 +399,18 @@
                 document.getElementById('modalMessage').innerHTML = `
                     Thank you, <strong>${name}</strong>!<br><br>
                     Your booking is confirmed for <strong>${date}</strong> at <strong>${time} ${ampm}</strong>.<br><br>
-                    You have been assigned to <strong>Chair ${data.chair}</strong>.
+                    Total Due at Arrival: <strong>₹${totalPrice}</strong><br>
+                    (Assigned to Chair ${data.chair})
                 `;
                 document.getElementById('bookingModal').classList.add('active');
                 
+                // Reset Form
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('appointmentDate').value = '';
                 document.getElementById('appointmentTime').value = '';
-                document.getElementById('notes').value = '';
-                document.querySelectorAll('input[name="service"]:checked').forEach(cb => cb.checked = false);
+                document.querySelectorAll('#bookingServiceList input:checked').forEach(cb => cb.checked = false);
+                calculateTotal();
 
             } catch (error) {
                 alert(`Booking failed: ${error.message}`);
@@ -552,6 +418,12 @@
         }
 
         function closeModal() { document.getElementById('bookingModal').classList.remove('active'); }
+
+        // Initialize Page
+        window.onload = () => {
+            renderServices('all');
+            renderBookingForm();
+        };
     </script>
 </body>
 </html>
